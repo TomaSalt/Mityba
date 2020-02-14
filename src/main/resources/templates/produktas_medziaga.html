@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<style>
+	label {
+		display: block;
+		width: 100%;
+	}
+	input[type="text"], input.frm_button, hr {
+	
+		width: 200px;
+		margin-right: auto;
+	}
+</style>
+<body>
+	<h3>Produktai medziagos</h3>
+	<form method="POST" action="">
+		<label for="id_produkto">Produkto pavadinimas</label>
+		<input name="id_produkto" type="text">
+		<label for="id_medziagos">Maisto medziagos pavadinimas</label>
+		<input name="id_medziagos" type="text">	
+		<label for="kiekis">Kiekis</label>
+		<input name="kiekis" type="text">			
+		<hr align="left">
+		<input type="submit" name="pildyti" class="frm_button" value="papildyti">
+	</form>
+	<table>
+		<tr>
+			<th>
+				veiksmai
+			</th>
+			<th>
+				id_produkto
+			</th>			
+			<th>
+				id_medziagos
+			</th>
+			<th>
+				kiekis
+			</th>
+			
+		</tr>
+		<tr th:each="produktas_medziaga : ${lst}">
+			<td>
+				<input type="button" class="keisti" value="keisti">
+				<input type="button" class="keisti" value="šalinti">				
+			</td>
+			<td th:text="${produktas_medziaga.getId_produkto()}"></td>
+			<td th:text="${produktas_medziaga.getId_medziagos()}"></td>
+			<td th:text="${produktas_medziaga.getKiekis()}"></td>
+			
+		
+		</tr>
+	</table>
+</body>
+</html>
