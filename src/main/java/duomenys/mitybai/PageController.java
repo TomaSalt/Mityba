@@ -25,11 +25,14 @@ public class PageController {
 	
 	@RequestMapping(path="/produktai", method={ RequestMethod.GET, RequestMethod.POST })
     public String produktai(
-    		@RequestParam(name="pav", required=false, defaultValue="") String pav
+    		@RequestParam(name="Pavadinimas", required=false, defaultValue="") String pav
     		, @RequestParam(name="pildyti", required=false, defaultValue="nepildyti") String pildyti
     		, Model model 
     	) {
         
+		System.out.println ( "pav: " + pav  );
+		System.out.println ( "pildyti: " + pildyti );
+		
         if ( pildyti.equals("papildyti") ) {
         	
         	Produktai produktas = new Produktai( pav );
