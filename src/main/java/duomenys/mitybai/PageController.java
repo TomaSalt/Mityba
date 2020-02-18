@@ -38,8 +38,9 @@ public class PageController {
         	Produktai produktas = new Produktai( pav );
         	produktai_rep.save( produktas );
         }
-        
+        model.addAttribute("lst_menu", Menu.values() ); 
         model.addAttribute("lst", produktai_rep.findAll() );
+        
         
         return "produktas";
     }	
@@ -56,7 +57,7 @@ public class PageController {
         	Maistines_medz maistine_medz = new Maistines_medz( pav, id_grupes );
         	maistines_medz_rep.save( maistine_medz );
         }
-        
+        model.addAttribute("lst_menu", Menu.values() ); 
         model.addAttribute("lst", maistines_medz_rep.findAll() );
         
         return "maistine_medz";
@@ -73,11 +74,20 @@ public class PageController {
         	Maisto_medz_grupes maisto_medz_grupe = new Maisto_medz_grupes( pav );
         	maisto_medz_grupes_rep.save( maisto_medz_grupe );
         }
-        
+        model.addAttribute("lst_menu", Menu.values() ); 
         model.addAttribute("lst", maisto_medz_grupes_rep.findAll() );
         
         return "maisto_medz_grupe";
     }
+	@RequestMapping(path="/", method={ RequestMethod.GET, RequestMethod.POST })
+    public String index(Model model) {
+        
+	
+        model.addAttribute("lst_menu", Menu.values() ); 
+        
+        return "index";
+    }	
+	
 	@RequestMapping(path="/produktai_medziagos", method={ RequestMethod.GET, RequestMethod.POST })
     public String produktai_medziagos(
     		@RequestParam(name="id_produkto", required=false, defaultValue="") Integer id_produkto
@@ -92,7 +102,7 @@ public class PageController {
         	Produktai_medziagos produktas_medziaga = new Produktai_medziagos( id_produkto, id_medziagos, kiekis );
         	produktai_medziagos_rep.save( produktas_medziaga );
         }
-        
+        model.addAttribute("lst_menu", Menu.values() ); 
         model.addAttribute("lst", produktai_medziagos_rep.findAll() );
         
         return "produktas_medziaga";

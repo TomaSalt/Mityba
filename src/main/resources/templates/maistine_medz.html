@@ -1,49 +1,65 @@
 <!DOCTYPE html>
 <html>
-<style>
-	label {
-		display: block;
-		width: 100%;
-	}
-	input[type="text"], input.frm_button, hr {
-	
-		width: 200px;
-		margin-right: auto;
-	}
-</style>
-<body>
-	<h3>Maistines medziagos</h3>
-	<form method="POST" action="">
-		<label for="pav">Maistines medziagos pavadinimas</label>
-		<input name="pav" type="text">
-		<label for="id_grupes">Maisto medziagu grupes pavadinimas</label>
-		<input name="id_grupes" type="text">		
-		<hr align="left">
-		<input type="submit" name="pildyti" class="frm_button" value="papildyti">
-	</form>
-	<table>
-		<tr>
-			<th>
-				veiksmai
-			</th>
-			<th>
-				pav
-			</th>			
-			<th>
-				id_grupes
-			</th>
-			
-		</tr>
-		<tr th:each="maistine_medz : ${lst}">
-			<td>
-				<input type="button" class="keisti" value="keisti">
-				<input type="button" class="keisti" value="šalinti">				
-			</td>
-			<td th:text="${maistine_medz.getPav()}"></td>
-			<td th:text="${maistine_medz.getId_grupes()}"></td>
-			
+<head>
+	<link rel="stylesheet" href="menu.css">
+	<style>
+		body {
+			padding: 0px;
+			margin: 0px;
+			text-align: center;
+			width:100%;
+		}
+		label {
+			display: block;
+			width: 100%;
+		}
+		input[type="text"], input.frm_button{
 		
-		</tr>
-	</table>
+			width: 200px;
+			margin-right: auto;
+		}
+	</style>
+</head>
+<body>
+	<div id="menu">
+		<ul id="menu_sarasas">
+			<li id="menu_punktas" th:each="menu_item : ${lst_menu}">
+				<a th:href="${menu_item.itemurl()}" th:text="${menu_item}"></a>
+			</li>
+		</ul>
+	</div>
+	<div id="main">
+		<h3>Maistiniu medziagu lentele</h3>
+		<form method="POST" action="">
+			<label for="pav">Maistines medziagos pavadinimas</label>
+			<input name="pav" type="text">
+			<label for="id_grupes">Maisto medziagu grupes pavadinimas</label>
+			<input name="id_grupes" type="text">		
+			<input type="submit" name="pildyti" class="frm_button" value="papildyti">
+		</form>
+		<table>
+			<tr>
+				<th>
+					veiksmai
+				</th>
+				<th>
+					pav
+				</th>			
+				<th>
+					id_grupes
+				</th>
+			</tr>
+			<tr th:each="maistine_medz : ${lst}">
+				<td>
+					<input type="button" class="keisti" value="keisti">
+					<input type="button" class="keisti" value="šalinti">				
+				</td>
+				<td th:text="${maistine_medz.getPav()}"></td>
+				<td th:text="${maistine_medz.getId_grupes()}"></td>
+				
+			
+			</tr>
+		</table>
+	</div>
 </body>
 </html>
