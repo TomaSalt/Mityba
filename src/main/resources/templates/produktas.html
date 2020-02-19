@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>jQuery UI Dialog - Modal form</title>
+	<title>Produktai</title>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
 	<link rel="stylesheet" href="menu.css">
@@ -39,8 +39,8 @@
 		var dialog, form,
 		// From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
 		emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-		Pavadinimas = $( "#Pavadinimas" ),
-		allFields = $( [] ).add( Pavadinimas ),
+		pav = $( "#pav" ),
+		allFields = $( [] ).add( pav),
 		tips = $( ".validateTips" );
 	 
 		function updateTips( t ) {
@@ -55,8 +55,8 @@
 		function checkLength( o, n, min, max ) {
 			if ( o.val().length > max || o.val().length < min ) {
 				o.addClass( "ui-state-error" );
-				updateTips( "Length of " + n + " must be between " +
-				  min + " and " + max + "." );
+				updateTips( n +  " ilgis turi būti tarp " +
+				  min + " ir " + max + " raidžių." );
 				return false;
 			} else {
 				return true;
@@ -77,7 +77,7 @@
 			var valid = true;
 			 allFields.removeClass( "ui-state-error" );
 		 
-			valid = valid && checkLength( Pavadinimas, "product", 3, 16 );
+			valid = valid && checkLength( pav, "Produkto pavadinimo", 3, 16 );
 
 			// valid = valid && checkRegexp( Pavadinimas, /^[a-z]([0-9a-z_\s])+$/i, "product may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
 	 
@@ -87,7 +87,7 @@
 				  "<td>" + Pavadinimas.val() + "</td>" +
 				"</tr>" );
 				*/
-				alert ( 'submitinam ..'  + Pavadinimas.val() );				
+				alert ( 'submitinam ..'  + pav.val() );				
 				
 				$( '#produkto_forma' ).submit();
 				dialog.dialog( "close" );
@@ -103,8 +103,8 @@
 			width: 350,
 			modal: true,
 			buttons: {
-				"Add the product": addProduct,
-				Cancel: function() {
+				"Sukurti": addProduct,
+				Atšaukti: function() {
 					dialog.dialog( "close" );
 				}
 			},
@@ -143,38 +143,39 @@
 			</li>
 		</ul>
 	</div>
-	<div id="dialog-form" title="Create new product">
-		<p class="validateTips">All form fields are required.</p>
+	<div id="dialog-form" title="Sukurti naują įrašą">
+		<p class="validateTips">Visi laukai privalomi</p>
 		<form id="produkto_forma" method="POST">
 			<fieldset>
-				<label for="Pavadinimas">Pavadinimas</label>
-				<input type="text" name="Pavadinimas" id="Pavadinimas" value="" class="text ui-widget-content ui-corner-all">
+				<label for="pav">Produkto pavadinimas</label>
+				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all">
 				<input type="hidden" name="pildyti" value="papildyti">				
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<!-- input type="submit" tabindex="-1" style="position:absolute; top:-1000px" name="pildyti" value="papildyti" -->
 				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-				
 			</fieldset>
 		</form>
 	</div>
 	<div id="main">
-		<h3>Esami produktai:</h3>
-		<div id="products-contain" class="ui-widget">
-			
-			<table id="products" class="ui-widget ui-widget-content">
-				<thead>
-				<tr class="ui-widget-header ">
-					<th>pav</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr th:each="produktas : ${lst}">
+		<h3>Esami produktai</h3>
+		<button id="create-product">Irašyti produktą</button>
+		<table id="duombazes_lentele">
+			<thead>
+			<tr>
+				<th>Veiksmai</th>
+				<th>Produkto pavadinimas</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="produktas : ${lst}">
+				<td>
+					<input type="button" class="keisti" value="keisti">
+					<input type="button" class="keisti" value="šalinti">
+				</td>
 				<td th:text="${produktas.getPav()}"></td>
-				</tr>
-				</tbody>
-			</table>
-		</div>
-		<button id="create-product">Irasyti produkta</button>
+			</tr>
+			</tbody>
+		</table>
 	</div>
 </body>
 </html>

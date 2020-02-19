@@ -25,7 +25,7 @@ public class PageController {
 	
 	@RequestMapping(path="/produktai", method={ RequestMethod.GET, RequestMethod.POST })
     public String produktai(
-    		@RequestParam(name="Pavadinimas", required=false, defaultValue="") String pav
+    		@RequestParam(name="pav", required=false, defaultValue="") String pav
     		, @RequestParam(name="pildyti", required=false, defaultValue="nepildyti") String pildyti
     		, Model model 
     	) {
