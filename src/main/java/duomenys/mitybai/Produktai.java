@@ -13,8 +13,9 @@ public class Produktai {
     private Integer id;
     private String pav;
    
-	public Produktai(String pav) {
+	public Produktai(Integer id, String pav) {
 		super();
+		this.id = id;
 		this.pav = pav;
 		
 	}

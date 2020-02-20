@@ -8,19 +8,23 @@ package duomenys.mitybai;
  */
 public enum Menu {
 
-	Produktai("/produktai")
-	, Maistines_medz("/maistines_medz")
-	, Maisto_medz_grupes("/maisto_medz_grupes")
-	, Produktai_medziagos("/produktai_medziagos");
+	Produktai("/produktai", "Produktai")
+	, Maistines_medz("/maistines_medz", "Maistinės medžiagos")
+	, Maisto_medz_grupes("/maisto_medz_grupes", "Maisto medžiagų grupės")
+	, Produktai_medziagos("/produktai_medziagos", "Produkto medžiagų kiekis");
 	
 	private final String itemurl;
+	private final String naujasPavadinimas;
 	
-	Menu( String url ) {
+	Menu( String url, String pavadinimas ) {
 		this.itemurl = url;
+		this.naujasPavadinimas = pavadinimas;
 	}
 	
 	public String itemurl() {
 		return this.itemurl;
 	}
-	
+	public String naujasPavadinimas() {
+		return this.naujasPavadinimas;
+	}
 }

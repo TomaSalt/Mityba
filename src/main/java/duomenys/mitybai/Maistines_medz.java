@@ -15,8 +15,9 @@ public class Maistines_medz {
     private Integer id_grupes;
     
    
-	public Maistines_medz(String pav, Integer id_grupes) {
+	public Maistines_medz(Integer id, String pav, Integer id_grupes) {
 		super();
+		this.id = id;
 		this.pav = pav;
 		this.id_grupes = id_grupes;
 		

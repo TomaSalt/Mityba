@@ -15,8 +15,9 @@ public class Produktai_medziagos {
     private Integer id_medziagos;
     private Double kiekis;
     
-	public Produktai_medziagos(Integer id_produkto, Integer id_medziagos, Double kiekis) {
+	public Produktai_medziagos(Integer id, Integer id_produkto, Integer id_medziagos, Double kiekis) {
 		super();
+		this.id = id;
 		this.id_produkto = id_produkto;
 		this.id_medziagos = id_medziagos;
 		this.kiekis = kiekis;

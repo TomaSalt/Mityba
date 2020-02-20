@@ -129,8 +129,29 @@
 			}
 		});
 	 */
+		trintidialog = $( "#dialog-confirm" ).dialog({
+			autoOpen: false,
+			resizable: false,
+			height: "auto",
+			width: 400,
+			modal: true,
+			buttons: {
+				"Ištrinti įrašą": function() {
+					$( this ).dialog( "close" );
+				},
+				Atšaukti: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
 		$( "#create-product" ).button().on( "click", function() {
 			dialog.dialog( "open" );
+		});
+		$( ".salinti" ).each ( function() {
+		
+			$( this ).on( "click", function() {
+				trintidialog.dialog( "open" );	
+			});
 		});
 	});
   </script>
@@ -139,7 +160,7 @@
 	<div id="menu">
 		<ul id="menu_sarasas">
 			<li id="menu_punktas" th:each="menu_item : ${lst_menu}">
-				<a th:href="${menu_item.itemurl()}" th:text="${menu_item}"></a>
+				<a th:href="${menu_item.itemurl()}" th:text="${menu_item.naujasPavadinimas()}"></a>
 			</li>
 		</ul>
 	</div>
@@ -169,13 +190,18 @@
 			<tbody>
 			<tr th:each="produktas : ${lst}">
 				<td>
-					<input type="button" class="keisti" value="keisti">
-					<input type="button" class="keisti" value="šalinti">
+					<input type="button" class="keisti" value="keisti" id="keisti"<%= id_rec  %>" onClick="iKeitima( <%= id_rec %> )">
+					<input type="button" class="salinti" value="šalinti" id="salinti_<%= id_rec  %>" onClick="iTrinima( <%= id_rec %> )">
 				</td>
 				<td th:text="${produktas.getPav()}"></td>
 			</tr>
 			</tbody>
 		</table>
+	</div>
+	<div id="dialog-confirm" title="Ištrinti įrašą?">
+		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Šis įrašas bus ištrintas ir nebus įmanoma jo atkurti. Ar tikrai norite ištrinti įrašą?</p>
+		<input type="hidden" name="salinti" value="pasalinti">
+		<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 	</div>
 </body>
 </html>

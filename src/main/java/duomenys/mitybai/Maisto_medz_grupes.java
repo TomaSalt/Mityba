@@ -21,8 +21,9 @@ public class Maisto_medz_grupes {
 
 	}    
     
-	public Maisto_medz_grupes(String pav) {
+	public Maisto_medz_grupes(Integer id, String pav) {
 		super();
+		this.id = id;
 		this.pav = pav;
 	}
 	
