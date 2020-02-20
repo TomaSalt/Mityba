@@ -3,14 +3,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Optional;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import org.hibernate.cfg.Configuration;
 
 
 @Controller
@@ -34,6 +29,8 @@ public class PageController {
     		@RequestParam(name="id", required=false, defaultValue="") Integer id
     		, @RequestParam(name="pav", required=false, defaultValue="") String pav
     		, @RequestParam(name="pildyti", required=false, defaultValue="nepildyti") String pildyti
+    		, @RequestParam(name="keisti", required=false, defaultValue="nekeisti") String keisti
+    		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
     		, Model model 
     	) {
         
@@ -44,6 +41,32 @@ public class PageController {
         	
         	Produktai produktas = new Produktai( id, pav );
         	produktai_rep.save( produktas );
+        }
+        
+        if ( keisti.equals("pakeisti") ) {
+        	
+        	Produktai produktas = new Produktai();// id, pav;
+        	Optional <Produktai> found = produktai_rep.findById( id );
+        	
+        	if ( found.isPresent() ) {
+    			
+        		produktas = found.get();
+        		produktas.setId(id);
+        		produktas.setPav(pav);
+        		produktai_rep.save(produktas);
+        	}
+
+        }
+        if ( salinti.equals("pasalinti") ) {
+        	
+        	Optional <Produktai> found = produktai_rep.findById( id );
+        	
+        	if ( found.isPresent() ) {
+    			
+        	//Produktai produktas = found.get();
+        		produktai_rep.deleteById(id);
+ 		
+ 			}
         }
         model.addAttribute("lst_menu", Menu.values() ); 
         model.addAttribute("lst", produktai_rep.findAll() );
@@ -57,6 +80,8 @@ public class PageController {
     		, @RequestParam(name="pav", required=false, defaultValue="") String pav
     		, @RequestParam(name="id_grupes", required=false, defaultValue="") Integer id_grupes
     		, @RequestParam(name="pildyti", required=false, defaultValue="nepildyti") String pildyti
+    		, @RequestParam(name="keisti", required=false, defaultValue="nekeisti") String keisti
+    		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
     		, Model model 
     	) {
         
@@ -64,6 +89,31 @@ public class PageController {
         	
         	Maistines_medz maistine_medz = new Maistines_medz( id, pav, id_grupes );
         	maistines_medz_rep.save( maistine_medz );
+        }
+        if ( keisti.equals("pakeisti") ) {
+        	Maistines_medz maistine_medz = new Maistines_medz();// id, pav;
+        	Optional <Maistines_medz> found = maistines_medz_rep.findById( id );
+        	
+        	if ( found.isPresent() ) {
+    			
+        		maistine_medz = found.get();
+        		maistine_medz.setId(id);
+        		maistine_medz.setPav(pav);
+        		maistines_medz_rep.save(maistine_medz);
+        	}
+
+        }
+        if ( salinti.equals("pasalinti") ) {
+        	
+        	Optional <Maistines_medz> found = maistines_medz_rep.findById( id );
+        	
+        	if ( found.isPresent() ) {
+    			
+        	//Maistines_medz maistine_medz = found.get();
+        	maistines_medz_rep.deleteById(id);
+ 		
+ 			}
+ 
         }
         model.addAttribute("lst_menu", Menu.values() ); 
         model.addAttribute("lst", maistines_medz_rep.findAll() );
@@ -75,6 +125,8 @@ public class PageController {
     		@RequestParam(name="id", required=false, defaultValue="") Integer id
     		, @RequestParam(name="pav", required=false, defaultValue="") String pav
     		, @RequestParam(name="pildyti", required=false, defaultValue="nepildyti") String pildyti
+    		, @RequestParam(name="keisti", required=false, defaultValue="nekeisti") String keisti
+    		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
     		, Model model 
     	) {
         
@@ -82,6 +134,31 @@ public class PageController {
         	
         	Maisto_medz_grupes maisto_medz_grupe = new Maisto_medz_grupes( id, pav );
         	maisto_medz_grupes_rep.save( maisto_medz_grupe );
+        }
+        if ( keisti.equals("pakeisti") ) {
+        	Maisto_medz_grupes maisto_medz_grupe = new Maisto_medz_grupes();// id, pav );
+        	Optional <Maisto_medz_grupes> found = maisto_medz_grupes_rep.findById( id );
+        	
+        	if ( found.isPresent() ) {
+    			
+        		maisto_medz_grupe = found.get();
+        		maisto_medz_grupe.setId(id);
+        		maisto_medz_grupe.setPav(pav);
+        		maisto_medz_grupes_rep.save(maisto_medz_grupe);
+        	}
+
+        }
+        if ( salinti.equals("pasalinti") ) {
+        	
+        	Optional <Maisto_medz_grupes> found = maisto_medz_grupes_rep.findById( id );
+        	
+        	if ( found.isPresent() ) {
+    			
+        	//Maisto_medz_grupes maisto_medz_grupe = found.get();
+        	maisto_medz_grupes_rep.deleteById(id);
+ 		
+ 			}
+ 
         }
         model.addAttribute("lst_menu", Menu.values() ); 
         model.addAttribute("lst", maisto_medz_grupes_rep.findAll() );
@@ -104,6 +181,7 @@ public class PageController {
     		, @RequestParam(name="id_medziagos", required=false, defaultValue="") Integer id_medziagos
     		, @RequestParam(name="kiekis", required=false, defaultValue="0") Double kiekis
     		, @RequestParam(name="pildyti", required=false, defaultValue="nepildyti") String pildyti
+    		, @RequestParam(name="keisti", required=false, defaultValue="nekeisti") String keisti
     		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
     		, Model model 
     	) {
@@ -112,6 +190,22 @@ public class PageController {
         	
         	Produktai_medziagos produktas_medziaga = new Produktai_medziagos( id, id_produkto, id_medziagos, kiekis );
         	produktai_medziagos_rep.save( produktas_medziaga );
+        }
+      
+        if ( keisti.equals("pakeisti") ) {
+        	Produktai_medziagos produktas_medziaga = new Produktai_medziagos();// id, id_produkto, id_medziagos, kiekis );
+        	Optional <Produktai_medziagos> found = produktai_medziagos_rep.findById( id );
+        	
+        	if ( found.isPresent() ) {
+    			
+	        	produktas_medziaga = found.get();
+	        	produktas_medziaga.setId(id);
+	        	produktas_medziaga.setId_produkto(id_produkto);
+	        	produktas_medziaga.setId_medziagos(id_medziagos);
+	        	produktas_medziaga.setKiekis(kiekis);
+	        	produktai_medziagos_rep.save(produktas_medziaga);
+        	}
+
         }
         if ( salinti.equals("pasalinti") ) {
         	

@@ -190,8 +190,8 @@
 			<tbody>
 			<tr th:each="produktas : ${lst}">
 				<td>
-					<input type="button" class="keisti" value="keisti" id="keisti"<%= id_rec  %>" onClick="iKeitima( <%= id_rec %> )">
-					<input type="button" class="salinti" value="šalinti" id="salinti_<%= id_rec  %>" onClick="iTrinima( <%= id_rec %> )">
+					<input type="button" class="keisti" value="keisti" id="keisti">
+					<input type="button" class="salinti" value="šalinti" id="salinti">
 				</td>
 				<td th:text="${produktas.getPav()}"></td>
 			</tr>
