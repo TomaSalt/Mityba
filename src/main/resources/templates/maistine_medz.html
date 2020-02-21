@@ -191,8 +191,8 @@
 			<tbody>
 			<tr th:each="maistine_medz : ${lst}">
 				<td>
-					<input type="button" class="keisti" value="keisti">
-					<input type="button" class="keisti" value="šalinti">				
+					<input type="button" class="keisti" value="keisti" th:attr="data-id=${maistine_medz.getId(),data-pav=${maistine_medz.getPav()">
+					<input type="button" class="keisti" value="šalinti" th:attr="data-id=${maistine_medz.getId(),data-pav=${maistine_medz.getPav()">				
 				</td>
 				<td th:text="${maistine_medz.getPav()}"></td>
 				<td th:text="${maistine_medz.getId_grupes()}"></td>

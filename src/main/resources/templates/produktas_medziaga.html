@@ -198,8 +198,8 @@
 			<tbody>
 			<tr th:each="produktas_medziaga : ${lst}">
 				<td>
-					<input type="button" class="keisti" value="keisti">
-					<input type="button" class="keisti" value="šalinti">				
+					<input type="button" class="keisti" value="keisti" th:attr="data-id=${produktas_medziaga.getId()}">
+					<input type="button" class="salinti" value="šalinti" th:attr="data-id=${produktas_medziaga.getId()}">				
 				</td>
 				<td th:text="${produktas_medziaga.getId_produkto()}"></td>
 				<td th:text="${produktas_medziaga.getId_medziagos()}"></td>

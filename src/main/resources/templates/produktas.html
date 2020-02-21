@@ -137,6 +137,7 @@
 			modal: true,
 			buttons: {
 				"Ištrinti įrašą": function() {
+					$( '#salinimo_forma' ).submit();
 					$( this ).dialog( "close" );
 				},
 				Atšaukti: function() {
@@ -147,9 +148,23 @@
 		$( "#create-product" ).button().on( "click", function() {
 			dialog.dialog( "open" );
 		});
+		$( ".keisti" ).each ( function() {
+		
+			$( this ).on( "click", function() {
+			
+				id = $( this ).data( 'id' );
+				$( '#id_taisomo_iraso' ).val ( id );
+				$( '#pav_taisomo_iraso' ).html ( $( this ).data ( 'pav' ) );			
+				dialog.dialog( "open" );	
+			});
+		});
 		$( ".salinti" ).each ( function() {
 		
 			$( this ).on( "click", function() {
+			
+				id = $( this ).data( 'id' );
+				$( '#id_salinamo_iraso' ).val ( id );
+				$( '#pav_salinamo_iraso' ).html ( $( this ).data ( 'pav' ) );			
 				trintidialog.dialog( "open" );	
 			});
 		});
@@ -166,11 +181,13 @@
 	</div>
 	<div id="dialog-form" title="Sukurti naują įrašą">
 		<p class="validateTips">Visi laukai privalomi</p>
+		<span id="pav_taisomo_iraso">Šis</span> įrašas bus pakeistas. Ar tikrai norite pakeisti įrašą?</p>
 		<form id="produkto_forma" method="POST">
 			<fieldset>
 				<label for="pav">Produkto pavadinimas</label>
 				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all">
-				<input type="hidden" name="pildyti" value="papildyti">				
+				<input type="hidden" name="pildyti" value="papildyti">
+				<input type="hidden" name="id" id="id_taisomo_iraso" value="0">				
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<!-- input type="submit" tabindex="-1" style="position:absolute; top:-1000px" name="pildyti" value="papildyti" -->
 				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
@@ -190,8 +207,8 @@
 			<tbody>
 			<tr th:each="produktas : ${lst}">
 				<td>
-					<input type="button" class="keisti" value="keisti" id="keisti">
-					<input type="button" class="salinti" value="šalinti" id="salinti">
+					<input type="button" class="keisti" value="keisti" id="keisti" th:attr="data-id=${produktas.getId()},data-pav=${produktas.getPav()}">
+					<input type="button" class="salinti" value="šalinti" id="salinti" th:attr="data-id=${produktas.getId()},data-pav=${produktas.getPav()}">
 				</td>
 				<td th:text="${produktas.getPav()}"></td>
 			</tr>
@@ -199,9 +216,13 @@
 		</table>
 	</div>
 	<div id="dialog-confirm" title="Ištrinti įrašą?">
-		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Šis įrašas bus ištrintas ir nebus įmanoma jo atkurti. Ar tikrai norite ištrinti įrašą?</p>
-		<input type="hidden" name="salinti" value="pasalinti">
-		<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+		<span id="pav_salinamo_iraso">Šis</span> įrašas bus ištrintas ir nebus įmanoma jo atkurti. Ar tikrai norite ištrinti įrašą?</p>
+		<form id="salinimo_forma" method="POST">
+			<input type="hidden" name="salinti" value="pasalinti">
+			<input type="hidden" name="id" id="id_salinamo_iraso" value="0">
+			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+		</form>
 	</div>
 </body>
 </html>
