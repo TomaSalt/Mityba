@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 import java.util.Optional;
 
 
@@ -37,10 +39,24 @@ public class PageController {
 		System.out.println ( "pav: " + pav  );
 		System.out.println ( "pildyti: " + pildyti );
 		
+		BackEndMessage back_end_message = new BackEndMessage ( "nieko dar neveikem", false, "pranesimas_grey" );
+		
         if ( pildyti.equals("papildyti") ) {
         	
-        	Produktai produktas = new Produktai( id, pav );
-        	produktai_rep.save( produktas );
+        	List<Produktai> lst_prod = produktai_rep.findByPav(pav);
+        	
+        	if ( lst_prod.size() > 0 ) {
+        		
+        		back_end_message.setMessage( "produktas su tokiu pav '" + pav + "' jau egzistuoja" );
+        		back_end_message.setCss_class( "pranesimas_red" );
+        		
+        	} else {
+        		
+	        	Produktai produktas = new Produktai( id, pav );
+	        	produktai_rep.save( produktas );
+        		back_end_message.setMessage( "sarašas papildytas produktu '" + pav + "'" );
+        		back_end_message.setCss_class( "pranesimas_green" );	        	
+        	}
         }
         
         if ( keisti.equals("pakeisti") ) {
@@ -68,8 +84,9 @@ public class PageController {
  		
  			}
         }
-        model.addAttribute("lst_menu", Menu.values() ); 
-        model.addAttribute("lst", produktai_rep.findAll() );
+        model.addAttribute( "back_end_message", back_end_message );
+        model.addAttribute( "lst_menu", Menu.values() ); 
+        model.addAttribute( "lst", produktai_rep.findAll() );
         
         
         return "produktas";
