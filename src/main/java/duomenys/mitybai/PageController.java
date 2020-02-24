@@ -205,7 +205,7 @@ public class PageController {
         
         if ( pildyti.equals("papildyti") ) {
         	
-        	Produktai_medziagos produktas_medziaga = new Produktai_medziagos( id, id_produkto, id_medziagos, kiekis );
+        	Produktai_medziagos produktas_medziaga = new Produktai_medziagos( id, id_produkto, id_medziagos, kiekis);
         	produktai_medziagos_rep.save( produktas_medziaga );
         }
       
@@ -217,8 +217,8 @@ public class PageController {
     			
 	        	produktas_medziaga = found.get();
 	        	produktas_medziaga.setId(id);
-	        	produktas_medziaga.setId_produkto(id_produkto);
-	        	produktas_medziaga.setId_medziagos(id_medziagos);
+	        	produktas_medziaga.setProduktai_id(id_produkto);
+	        	produktas_medziaga.setMaistines_medz_id(id_medziagos);
 	        	produktas_medziaga.setKiekis(kiekis);
 	        	produktai_medziagos_rep.save(produktas_medziaga);
         	}

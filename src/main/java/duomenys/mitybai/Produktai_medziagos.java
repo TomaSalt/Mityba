@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Produktai_medziagos {
@@ -11,18 +15,31 @@ public class Produktai_medziagos {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
-    private Integer id_produkto;
-    private Integer id_medziagos;
+    private Integer produktai_id;
+    private Integer maistines_medz_id;
     private Double kiekis;
     
-	public Produktai_medziagos(Integer id, Integer id_produkto, Integer id_medziagos, Double kiekis) {
+    @JsonIgnoreProperties("produktas_medziaga")
+    @ManyToOne
+    @JoinColumn(insertable=false, updatable=false)    
+    private Produktai produktai;
+    
+	public Produktai_medziagos(Integer id, Integer produktai_id, Integer id_medziagos, Double kiekis) {
 		super();
 		this.id = id;
-		this.id_produkto = id_produkto;
-		this.id_medziagos = id_medziagos;
+		this.produktai_id = produktai_id;
+		this.maistines_medz_id = id_medziagos;
 		this.kiekis = kiekis;
 	}
     
+	public Produktai getProduktai() {
+		return produktai;
+	}
+
+	public void setProduktas(Produktai produktas) {
+		this.produktai = produktas;
+	}
+
 	public Produktai_medziagos() {
 	
 	}
@@ -35,20 +52,20 @@ public class Produktai_medziagos {
 		this.id = id;
 	}
 
-	public Integer getId_produkto() {
-		return id_produkto;
+	public Integer getProduktai_id() {
+		return produktai_id;
 	}
 
-	public void setId_produkto(Integer id_produkto) {
-		this.id_produkto = id_produkto;
+	public void setProduktai_id(Integer produktai_id) {
+		this.produktai_id = produktai_id;
 	}
 
-	public Integer getId_medziagos() {
-		return id_medziagos;
+	public Integer getMaistines_medz_id() {
+		return maistines_medz_id;
 	}
 
-	public void setId_medziagos(Integer id_medziagos) {
-		this.id_medziagos = id_medziagos;
+	public void setMaistines_medz_id(Integer maistines_medz_id) {
+		this.maistines_medz_id = maistines_medz_id;
 	}
 
 	public Double getKiekis() {
@@ -57,6 +74,19 @@ public class Produktai_medziagos {
 
 	public void setKiekis(Double kiekis) {
 		this.kiekis = kiekis;
+	}
+	
+	
+	@ManyToOne
+	@JoinColumn(insertable=false, updatable=false)
+	private Maistines_medz maistine_medz;
+
+	public Maistines_medz getMaistine_medz() {
+		return maistine_medz;
+	}
+
+	public void setMaistines_medz(Maistines_medz maistine_medz) {
+		this.maistine_medz = maistine_medz;
 	}
 	
 }

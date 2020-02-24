@@ -1,9 +1,14 @@
 package duomenys.mitybai;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import java.util.List;
+
 
 @Entity
 public class Produktai {
@@ -12,6 +17,9 @@ public class Produktai {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     private String pav;
+    
+    @OneToMany(mappedBy="produktai",cascade=CascadeType.ALL)
+    private List<Produktai_medziagos> produktai_medziagos;    
    
 	public Produktai(Integer id, String pav) {
 		super();
@@ -48,6 +56,14 @@ public class Produktai {
 		this.pav = pav;
 	}
 
+	public List<Produktai_medziagos> getProduktai_medziagos() {
+		
+		return produktai_medziagos;
+	}
+	public void setProduktai_medziagos (List<Produktai_medziagos> produktai_medziagos) {
+		
+		this.produktai_medziagos = produktai_medziagos;
+	}
 	/*public String ThAtstumasKm() {
 		
 		return atstumas_km.toString();	
