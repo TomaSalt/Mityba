@@ -217,12 +217,13 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr th:each="produktas : ${lst}">
+			<tr th:each="medziaga : ${medziagos}">
 				<td>
-					<input type="button" class="keisti" value="keisti" id="keisti" th:attr="data-id=${produktas.getId()},data-pav=${produktas.getPav()}">
-					<input type="button" class="salinti" value="šalinti" id="salinti" th:attr="data-id=${produktas.getId()},data-pav=${produktas.getPav()}">
+					<input type="button" class="keisti" value="keisti" id="keisti" th:attr="data-id=${medziaga.getMaistines_medz().getId()},data-pav=${medziaga.getMaistines_medz().getPav()}">
+					<input type="button" class="salinti" value="šalinti" id="salinti" th:attr="data-id=${medziaga.getMaistines_medz().getId()},data-pav=${medziaga.getMaistines_medz().getPav()}">
 				</td>
-				<td th:text="${produktas.getPav()}"></td>
+				<td th:text="${medziaga.getMaistines_medz().getPav()}">
+				</td>
 			</tr>
 			</tbody>
 		</table>

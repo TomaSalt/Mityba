@@ -90,7 +90,26 @@ public class PageController {
         
         
         return "produktas";
-    }	
+    }
+	@RequestMapping(path="/produktas", method={ RequestMethod.GET, RequestMethod.POST })
+	public String produktas1(
+		@RequestParam(name="id", required=true) Integer id
+		, Model model 
+	) {
+		
+		BackEndMessage back_end_message = new BackEndMessage ( "nieko dar neveikem", false, "pranesimas_grey" );
+    	Produktai produktas = new Produktai();// id, pav;
+    	Optional <Produktai> found = produktai_rep.findById( id );
+    	
+    	if ( found.isPresent() ) {
+			
+    		produktas = found.get();
+    	}
+        model.addAttribute( "back_end_message", back_end_message );	
+        model.addAttribute( "medziagos", produktas.getProduktai_medziagos() );	
+		return "produktas1";
+	}
+	
 	@RequestMapping(path="/maistines_medz", method={ RequestMethod.GET, RequestMethod.POST })
     public String maistines_medz(
     		@RequestParam(name="id", required=false, defaultValue="") Integer id

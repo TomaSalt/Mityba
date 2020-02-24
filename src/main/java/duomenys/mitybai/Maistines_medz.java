@@ -1,9 +1,15 @@
 package duomenys.mitybai;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Maistines_medz {
@@ -14,7 +20,20 @@ public class Maistines_medz {
     private String pav;
     private Integer id_grupes;
     
+    
+    @JsonIgnoreProperties("maistines_medz")
+    @OneToMany(mappedBy = "maistines_medz",cascade = CascadeType.ALL)   
+    private List<Produktai_medziagos> produktai_medziagos;
+    
    
+	public List<Produktai_medziagos> getProduktai_medziagos() {
+		return produktai_medziagos;
+	}
+
+	public void setProduktai_medziagos(List<Produktai_medziagos> produktai_medziagos) {
+		this.produktai_medziagos = produktai_medziagos;
+	}
+
 	public Maistines_medz(Integer id, String pav, Integer id_grupes) {
 		super();
 		this.id = id;

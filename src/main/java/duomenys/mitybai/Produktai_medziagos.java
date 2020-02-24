@@ -24,6 +24,15 @@ public class Produktai_medziagos {
     @JoinColumn(insertable=false, updatable=false)    
     private Produktai produktai;
     
+    @JsonIgnoreProperties("produktai_medziagos")
+    @ManyToOne
+    @JoinColumn(insertable=false, updatable=false)
+    private Maistines_medz maistines_medz;   
+    
+	public Maistines_medz getMaistines_medz() {
+		return maistines_medz;
+	}
+
 	public Produktai_medziagos(Integer id, Integer produktai_id, Integer id_medziagos, Double kiekis) {
 		super();
 		this.id = id;
@@ -36,7 +45,7 @@ public class Produktai_medziagos {
 		return produktai;
 	}
 
-	public void setProduktas(Produktai produktas) {
+	public void setProduktai(Produktai produktas) {
 		this.produktai = produktas;
 	}
 
@@ -76,7 +85,7 @@ public class Produktai_medziagos {
 		this.kiekis = kiekis;
 	}
 	
-	
+/*	
 	@ManyToOne
 	@JoinColumn(insertable=false, updatable=false)
 	private Maistines_medz maistine_medz;
@@ -88,6 +97,6 @@ public class Produktai_medziagos {
 	public void setMaistines_medz(Maistines_medz maistine_medz) {
 		this.maistine_medz = maistine_medz;
 	}
-	
+*/	
 }
 

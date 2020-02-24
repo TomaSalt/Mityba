@@ -223,7 +223,9 @@
 					<input type="button" class="keisti" value="keisti" id="keisti" th:attr="data-id=${produktas.getId()},data-pav=${produktas.getPav()}">
 					<input type="button" class="salinti" value="šalinti" id="salinti" th:attr="data-id=${produktas.getId()},data-pav=${produktas.getPav()}">
 				</td>
-				<td th:text="${produktas.getPav()}"></td>
+				<td>
+					<a th:href="@{/produktas(id=${produktas.getId()})}" th:text="${produktas.getPav()}"></a>
+				</td>
 			</tr>
 			</tbody>
 		</table>
