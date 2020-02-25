@@ -48,8 +48,8 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
 	$( function() {
+	
 		var dialog, form,
-
 		pav = $( "#pav" ),
 		allFields = $( [] ).add( pav),
 		tips = $( ".validateTips" );
@@ -183,7 +183,7 @@
   </script>
 </head>
 <body>
-	<p th:attr="class=${back_end_message.getCss_class()}"  th:text="${back_end_message.getMessage()}"></p>
+	<!--<p th:attr="class=${back_end_message.getCss_class()}"  th:text="${back_end_message.getMessage()}"></p>-->
 	<div id="menu">
 		<ul id="menu_sarasas">
 			<li id="menu_punktas" th:each="menu_item : ${lst_menu}">

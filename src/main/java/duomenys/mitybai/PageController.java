@@ -91,6 +91,7 @@ public class PageController {
         
         return "produktas";
     }
+	
 	@RequestMapping(path="/produktas", method={ RequestMethod.GET, RequestMethod.POST })
 	public String produktas1(
 		@RequestParam(name="id", required=true) Integer id
@@ -100,12 +101,15 @@ public class PageController {
 		BackEndMessage back_end_message = new BackEndMessage ( "nieko dar neveikem", false, "pranesimas_grey" );
     	Produktai produktas = new Produktai();// id, pav;
     	Optional <Produktai> found = produktai_rep.findById( id );
+    	//Produktai_medziagos produktas_medziaga = new Produktai_medziagos();
+    	//Optional <Produktai_medziagos> found = produktai_medziagos_rep.findById_produkto(id_produkto);
     	
     	if ( found.isPresent() ) {
 			
     		produktas = found.get();
     	}
-        model.addAttribute( "back_end_message", back_end_message );	
+        model.addAttribute( "back_end_message", back_end_message );
+        model.addAttribute("lst_menu", Menu.values() ); 
         model.addAttribute( "medziagos", produktas.getProduktai_medziagos() );	
 		return "produktas1";
 	}
@@ -120,11 +124,25 @@ public class PageController {
     		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
     		, Model model 
     	) {
-        
+		
+		BackEndMessage back_end_message = new BackEndMessage ( "nieko dar neveikem", false, "pranesimas_grey" );
+		
         if ( pildyti.equals("papildyti") ) {
         	
-        	Maistines_medz maistine_medz = new Maistines_medz( id, pav, id_grupes );
-        	maistines_medz_rep.save( maistine_medz );
+        	List<Maistines_medz> lst_maist_medz = maistines_medz_rep.findByPav(pav);
+        	
+        	if ( lst_maist_medz.size() > 0 ) {
+        		
+        		back_end_message.setMessage( "maistine medziaga su tokiu pav '" + pav + "' jau egzistuoja" );
+        		back_end_message.setCss_class( "pranesimas_red" );
+        		
+        	} else {
+        	
+	        	Maistines_medz maistine_medz = new Maistines_medz( id, pav, id_grupes );
+	        	maistines_medz_rep.save( maistine_medz );
+	    		back_end_message.setMessage( "sarašas papildytas maistine medziaga '" + pav + "'" );
+	    		back_end_message.setCss_class( "pranesimas_green" );
+        	}
         }
         if ( keisti.equals("pakeisti") ) {
         	Maistines_medz maistine_medz = new Maistines_medz();// id, pav;
@@ -151,6 +169,7 @@ public class PageController {
  			}
  
         }
+        model.addAttribute( "back_end_message", back_end_message );
         model.addAttribute("lst_menu", Menu.values() ); 
         model.addAttribute("lst", maistines_medz_rep.findAll() );
         
@@ -166,12 +185,27 @@ public class PageController {
     		, Model model 
     	) {
         
-        if ( pildyti.equals("papildyti") ) {
+		BackEndMessage back_end_message = new BackEndMessage ( "nieko dar neveikem", false, "pranesimas_grey" );
+		
+		if ( pildyti.equals("papildyti") ) {
         	
-        	Maisto_medz_grupes maisto_medz_grupe = new Maisto_medz_grupes( id, pav );
-        	maisto_medz_grupes_rep.save( maisto_medz_grupe );
+        	List<Maisto_medz_grupes> lst_maist_medz_grup = maisto_medz_grupes_rep.findByPav(pav);
+        	
+        	if ( lst_maist_medz_grup.size() > 0 ) {
+        		
+        		back_end_message.setMessage( "maistiniu medziagu grupe su tokiu pav '" + pav + "' jau egzistuoja" );
+        		back_end_message.setCss_class( "pranesimas_red" );
+        		
+        	} else {
+        	
+            	Maisto_medz_grupes maisto_medz_grupe = new Maisto_medz_grupes( id, pav );
+            	maisto_medz_grupes_rep.save( maisto_medz_grupe );
+	    		back_end_message.setMessage( "sarašas papildytas maistiniu medziagu grupe '" + pav + "'" );
+	    		back_end_message.setCss_class( "pranesimas_green" );
+        	}
         }
         if ( keisti.equals("pakeisti") ) {
+        	
         	Maisto_medz_grupes maisto_medz_grupe = new Maisto_medz_grupes();// id, pav );
         	Optional <Maisto_medz_grupes> found = maisto_medz_grupes_rep.findById( id );
         	
@@ -194,8 +228,9 @@ public class PageController {
         	maisto_medz_grupes_rep.deleteById(id);
  		
  			}
- 
         }
+
+        model.addAttribute( "back_end_message", back_end_message );
         model.addAttribute("lst_menu", Menu.values() ); 
         model.addAttribute("lst", maisto_medz_grupes_rep.findAll() );
         
@@ -221,11 +256,15 @@ public class PageController {
     		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
     		, Model model 
     	) {
-        
+		
+		BackEndMessage back_end_message = new BackEndMessage ( "nieko dar neveikem", false, "pranesimas_grey" );
+		
         if ( pildyti.equals("papildyti") ) {
         	
         	Produktai_medziagos produktas_medziaga = new Produktai_medziagos( id, id_produkto, id_medziagos, kiekis);
         	produktai_medziagos_rep.save( produktas_medziaga );
+    		back_end_message.setMessage( "sarašas papildytas produkto '" + id_produkto + "' maistines medziagos '" + id_medziagos + "' kiekiu '" + kiekis + "'" );
+    		back_end_message.setCss_class( "pranesimas_green" );
         }
       
         if ( keisti.equals("pakeisti") ) {
@@ -255,6 +294,7 @@ public class PageController {
  			}
   
         }
+        model.addAttribute( "back_end_message", back_end_message );
         model.addAttribute("lst_menu", Menu.values() ); 
         model.addAttribute("lst", produktai_medziagos_rep.findAll() );
         

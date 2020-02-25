@@ -36,9 +36,8 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
 	$( function() {
+	
 		var dialog, form,
-		// From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
-
 		pav = $( "#pav" ),
 		id_grupes = $( "#id_grupes" ),
 		kiekis = $( "#kiekis" ),
@@ -133,13 +132,50 @@
 			}
 		});
 	 */
+		trintidialog = $( "#dialog-confirm" ).dialog({
+			autoOpen: false,
+			resizable: false,
+			height: "auto",
+			width: 400,
+			modal: true,
+			buttons: {
+				"Ištrinti įrašą": function() {
+					$( '#salinimo_forma' ).submit();
+					$( this ).dialog( "close" );
+				},
+				Atšaukti: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
 		$( "#create-product" ).button().on( "click", function() {
 			dialog.dialog( "open" );
+		});
+		$( ".keisti" ).each ( function() {
+		
+			$( this ).on( "click", function() {
+			
+				id = $( this ).data( 'id' );
+				$( '#id_taisomo_iraso' ).val ( id );
+				$( '#pav_taisomo_iraso' ).html ( $( this ).data ( 'pav' ) );			
+				dialog.dialog( "open" );	
+			});
+		});
+		$( ".salinti" ).each ( function() {
+		
+			$( this ).on( "click", function() {
+			
+				id = $( this ).data( 'id' );
+				$( '#id_salinamo_iraso' ).val ( id );
+				$( '#pav_salinamo_iraso' ).html ( $( this ).data ( 'pav' ) );			
+				trintidialog.dialog( "open" );	
+			});
 		});
 	});
 	</script>
 </head>
 <body>
+	<!--<p th:attr="class=${back_end_message.getCss_class()}"  th:text="${back_end_message.getMessage()}"></p>-->
 	<div id="menu">
 		<ul id="menu_sarasas">
 			<li id="menu_punktas" th:each="menu_item : ${lst_menu}">
@@ -149,6 +185,7 @@
 	</div>
 	<div id="dialog-form" title="Sukurti naują įrašą">
 		<p class="validateTips">Visi laukai privalomi</p>
+		<span id="pav_taisomo_iraso">Šis</span> įrašas bus pakeistas. Ar tikrai norite pakeisti įrašą?</p>
 		<form id="produkto_forma" method="POST">
 			<fieldset>
 				<label for="pav">Maistinės medžiagos pavadinimas</label>
@@ -156,10 +193,10 @@
 				<label for="id_grupes">ID_grupės</label>
 				<input type="number" name="id_grupes" id="id_grupes" value="" class="text ui-widget-content ui-corner-all">
 				<input type="hidden" name="pildyti" value="papildyti">				
+				<input type="hidden" name="id" id="id_taisomo_iraso" value="0">
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<!-- input type="submit" tabindex="-1" style="position:absolute; top:-1000px" name="pildyti" value="papildyti" -->
 				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-				
 			</fieldset>
 		</form>
 	</div>
@@ -192,15 +229,22 @@
 			<tr th:each="maistine_medz : ${lst}">
 				<td>
 					<input type="button" class="keisti" value="keisti" th:attr="data-id=${maistine_medz.getId()},data-pav=${maistine_medz.getPav()}">
-					<input type="button" class="keisti" value="šalinti" th:attr="data-id=${maistine_medz.getId()},data-pav=${maistine_medz.getPav()}">				
+					<input type="button" class="salinti" value="šalinti" th:attr="data-id=${maistine_medz.getId()},data-pav=${maistine_medz.getPav()}">				
 				</td>
 				<td th:text="${maistine_medz.getPav()}"></td>
 				<td th:text="${maistine_medz.getId_grupes()}"></td>
-				
-			
 			</tr>
 			</tbody>
 		</table>
+	</div>
+	<div id="dialog-confirm" title="Ištrinti įrašą?">
+		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+		<span id="pav_salinamo_iraso">Šis</span> įrašas bus ištrintas ir nebus įmanoma jo atkurti. Ar tikrai norite ištrinti įrašą?</p>
+		<form id="salinimo_forma" method="POST">
+			<input type="hidden" name="salinti" value="pasalinti">
+			<input type="hidden" name="id" id="id_salinamo_iraso" value="0">
+			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+		</form>
 	</div>
 </body>
 </html>
