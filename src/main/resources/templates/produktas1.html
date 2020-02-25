@@ -88,7 +88,7 @@
 			var valid = true;
 			 allFields.removeClass( "ui-state-error" );
 		 
-			valid = valid && checkLength( pav, "Produkto pavadinimo", 3, 16 );
+			//valid = valid && checkLength( pav, "Produkto pavadinimo", 3, 16 );
 
 			// valid = valid && checkRegexp( Pavadinimas, /^[a-z]([0-9a-z_\s])+$/i, "product may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
 	 
@@ -193,11 +193,15 @@
 	</div>
 	<div id="dialog-form" title="Sukurti naują įrašą">
 		<p class="validateTips">Visi laukai privalomi</p>
-		<span id="pav_taisomo_iraso">Šis</span> įrašas bus pakeistas. Ar tikrai norite pakeisti įrašą?</p>
+		<span id="pav_taisomo_iraso">Maistinės medžiagos </span> kiekis bus pakeistas. Ar tikrai norite pakeisti įrašą?</p>
 		<form id="produkto_forma" method="POST">
 			<fieldset>
-				<label for="pav">Produkto pavadinimas</label>
-				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all">
+				<label for="pav">Maistinės medžiagos pavadinimas</label>
+				<select id="pav">
+					<option th:each="medziaga : ${visos_medziagos}" th:attr="value=${medziaga.getId()}" th:text= "${medziaga.getPav()}"></option>
+				</select>
+				<label for="kiekis">Kiekis</label>
+				<input type="number" name="kiekis" id="kiekis" value="0" class="text ui-widget-content ui-corner-all">
 				<input type="hidden" name="pildyti" value="papildyti">
 				<input type="hidden" name="id" id="id_taisomo_iraso" value="0">				
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
@@ -207,22 +211,25 @@
 		</form>
 	</div>
 	<div id="main">
-		<h3>Esami produktai</h3>
-		<button id="create-product">Irašyti produktą</button>
+		<h3>Esamų maistinių medžiagų sąrašas su kiekiais</h3>
+		<button id="create-product">Irašyti maistinę medžiagą</button>
 		<table id="duombazes_lentele">
 			<thead>
 			<tr>
 				<th>Veiksmai</th>
-				<th>Produkto pavadinimas</th>
+				<th>Maistinės medžiagos pavadinimas</th>
+				<th>Kiekis</th>
 			</tr>
 			</thead>
 			<tbody>
 			<tr th:each="medziaga : ${medziagos}">
 				<td>
-					<input type="button" class="keisti" value="keisti" id="keisti" th:attr="data-id=${medziaga.getMaistines_medz().getId()},data-pav=${medziaga.getMaistines_medz().getPav()}">
-					<input type="button" class="salinti" value="šalinti" id="salinti" th:attr="data-id=${medziaga.getMaistines_medz().getId()},data-pav=${medziaga.getMaistines_medz().getPav()}">
+					<input type="button" class="keisti" value="keisti" id="keisti" th:attr="data-id=${medziaga.getId()},data-pav=${medziaga.getMaistines_medz().getPav()}">
+					<input type="button" class="salinti" value="šalinti" id="salinti" th:attr="data-id=${medziaga.getId()},data-pav=${medziaga.getMaistines_medz().getPav()}">
 				</td>
 				<td th:text="${medziaga.getMaistines_medz().getPav()}">
+				</td>
+				<td th:text="${medziaga.getKiekis()}">
 				</td>
 			</tr>
 			</tbody>

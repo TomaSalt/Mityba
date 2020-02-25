@@ -95,22 +95,60 @@ public class PageController {
 	@RequestMapping(path="/produktas", method={ RequestMethod.GET, RequestMethod.POST })
 	public String produktas1(
 		@RequestParam(name="id", required=true) Integer id
+		, @RequestParam(name="pav", required=false) String pav
+		, @RequestParam(name="kiekis", required=false) Double kiekis
+		, @RequestParam(name="pildyti", required=false, defaultValue="nepildyti") String pildyti
+		, @RequestParam(name="keisti", required=false, defaultValue="nekeisti") String keisti
+		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
 		, Model model 
 	) {
 		
 		BackEndMessage back_end_message = new BackEndMessage ( "nieko dar neveikem", false, "pranesimas_grey" );
-    	Produktai produktas = new Produktai();// id, pav;
-    	Optional <Produktai> found = produktai_rep.findById( id );
-    	//Produktai_medziagos produktas_medziaga = new Produktai_medziagos();
-    	//Optional <Produktai_medziagos> found = produktai_medziagos_rep.findById_produkto(id_produkto);
-    	
+		Produktai produktas = new Produktai();// id, pav;
+    	Optional <Produktai> found = produktai_rep.findById( id );    	
     	if ( found.isPresent() ) {
 			
     		produktas = found.get();
     	}
+    	
+    	if ( pildyti.equals("papildyti") ) {
+    		Produktai_medziagos produktas_medziaga = new Produktai_medziagos();
+    		produktai_medziagos_rep.save(produktas_medziaga);
+		    back_end_message.setMessage( "sarašas papildytas maistine medziaga '" + pav + "' ir kiekiu" );
+	    	back_end_message.setCss_class( "pranesimas_green" );
+        }
+        if ( keisti.equals("pakeisti") ) {
+    		Produktai_medziagos produktas_medziaga = new Produktai_medziagos();
+        	Optional <Produktai_medziagos> found_produktas_medziaga = produktai_medziagos_rep.findById( id );
+        	
+        	if ( found.isPresent() ) {
+    			
+        		produktas_medziaga = found_produktas_medziaga.get();
+        		produktas_medziaga.setKiekis(kiekis);
+        		produktai_medziagos_rep.save(produktas_medziaga);
+        	}
+
+        }
+        if ( salinti.equals("pasalinti") ) {
+        	
+        	Optional <Produktai_medziagos> found_salinamas_produktas_medziaga = produktai_medziagos_rep.findById( id );
+      
+        	if ( found_salinamas_produktas_medziaga.isPresent() ) {
+    			
+        		//Maistines_medz maistine_medz = found.get();
+        		produktai_medziagos_rep.deleteById(id);
+ 		
+ 			}
+ 
+        }
+    	
+    	//
+    	//Optional <Produktai_medziagos> found = produktai_medziagos_rep.findById_produkto(id_produkto);
+
         model.addAttribute( "back_end_message", back_end_message );
         model.addAttribute("lst_menu", Menu.values() ); 
         model.addAttribute( "medziagos", produktas.getProduktai_medziagos() );	
+        model.addAttribute( "visos_medziagos", maistines_medz_rep.findAll() );
 		return "produktas1";
 	}
 	
