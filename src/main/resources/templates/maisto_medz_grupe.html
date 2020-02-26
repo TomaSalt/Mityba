@@ -146,6 +146,8 @@
 			}
 		});
 		$( "#create-product" ).button().on( "click", function() {
+		
+			$( '#pav_veiksmo' ).html ( 'Kuriamas naujas įrašas' );
 			dialog.dialog( "open" );
 		});
 		$( ".keisti" ).each ( function() {
@@ -154,7 +156,8 @@
 			
 				id = $( this ).data( 'id' );
 				$( '#id_taisomo_iraso' ).val ( id );
-				$( '#pav_taisomo_iraso' ).html ( $( this ).data ( 'pav' ) );			
+				$( '#pav_veiksmo' ).html (  'Koreguojamas įrašas' );
+				$('#pav').val( $( this ).data ( 'pav' ));			
 				dialog.dialog( "open" );	
 			});
 		});
@@ -180,9 +183,9 @@
 			</li>
 		</ul>
 	</div>
-	<div id="dialog-form" title="Sukurti naują įrašą">
+	<div id="dialog-form" title="Maisto medžiagų grupė">
 		<p class="validateTips">Visi laukai privalomi</p>
-		<span id="pav_taisomo_iraso">Šis</span> įrašas bus pakeistas. Ar tikrai norite pakeisti įrašą?</p>
+		<p id="pav_veiksmo"></p>
 		<form id="produkto_forma" method="POST">
 			<fieldset>
 				<label for="pav">Maisto medžiagų grupės pavadinimas</label>
@@ -226,7 +229,7 @@
 	</div>
 	<div id="dialog-confirm" title="Ištrinti įrašą?">
 		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
-		<span id="pav_salinamo_iraso">Šis</span> įrašas bus ištrintas ir nebus įmanoma jo atkurti. Ar tikrai norite ištrinti įrašą?</p>
+		<p>Šis įrašas <span id="pav_salinamo_iraso"></span> bus ištrintas ir nebus įmanoma jo atkurti. Ar tikrai norite ištrinti įrašą?</p>
 		<form id="salinimo_forma" method="POST">
 			<input type="hidden" name="salinti" value="pasalinti">
 			<input type="hidden" name="id" id="id_salinamo_iraso" value="0">

@@ -151,6 +151,7 @@
 		$( "#create-product" ).button().on( "click", function() {
 		
 			$( '#pav_veiksmo' ).html ( 'Kuriamas naujas įrašas' );
+			$( '#veiksmas' ).val ( 'papildyti' );
 			dialog.dialog( "open" );
 		});
 		$( ".keisti" ).each ( function() {
@@ -160,7 +161,8 @@
 				id = $( this ).data( 'id' );
 				$( '#id_taisomo_iraso' ).val ( id );
 				$( '#pav_veiksmo' ).html (  'Koreguojamas įrašas' );
-				$('#pav').val( $( this ).data ( 'pav' ));			
+				$( '#pav' ).val( $( this ).data ( 'pav' ) );	
+				$( '#veiksmas' ).val ( 'pakeisti' );
 				dialog.dialog( "open" );	
 			});
 		});
@@ -186,16 +188,16 @@
 			</li>
 		</ul>
 	</div>
-	<div id="dialog-form" title="Sukurti naują įrašą">
+	<div id="dialog-form" title="Maistinė medžiaga">
 		<p class="validateTips">Visi laukai privalomi</p>
-		<span id="pav_taisomo_iraso">Šis</span> įrašas bus pakeistas. Ar tikrai norite pakeisti įrašą?</p>
+		<p id="pav_veiksmo"></p>
 		<form id="produkto_forma" method="POST">
 			<fieldset>
 				<label for="pav">Maistinės medžiagos pavadinimas</label>
 				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all">
 				<label for="id_grupes">ID_grupės</label>
 				<input type="number" name="id_grupes" id="id_grupes" value="" class="text ui-widget-content ui-corner-all">
-				<input type="hidden" name="pildyti" value="papildyti">				
+				<input type="hidden" name="veiksmas" id="veiksmas" value="papildyti">				
 				<input type="hidden" name="id" id="id_taisomo_iraso" value="0">
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<!-- input type="submit" tabindex="-1" style="position:absolute; top:-1000px" name="pildyti" value="papildyti" -->

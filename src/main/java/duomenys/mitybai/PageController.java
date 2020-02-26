@@ -30,18 +30,14 @@ public class PageController {
     public String produktai(
     		@RequestParam(name="id", required=false, defaultValue="") Integer id
     		, @RequestParam(name="pav", required=false, defaultValue="") String pav
-    		, @RequestParam(name="pildyti", required=false, defaultValue="nepildyti") String pildyti
-    		, @RequestParam(name="keisti", required=false, defaultValue="nekeisti") String keisti
+    		, @RequestParam(name="veiksmas", required=false, defaultValue="neveikti") String veiksmas
     		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
     		, Model model 
     	) {
         
-		System.out.println ( "pav: " + pav  );
-		System.out.println ( "pildyti: " + pildyti );
-		
 		BackEndMessage back_end_message = new BackEndMessage ( "nieko dar neveikem", false, "pranesimas_grey" );
 		
-        if ( pildyti.equals("papildyti") ) {
+        if ( veiksmas.equals("papildyti") ) {
         	
         	List<Produktai> lst_prod = produktai_rep.findByPav(pav);
         	
@@ -59,7 +55,7 @@ public class PageController {
         	}
         }
         
-        if ( keisti.equals("pakeisti") ) {
+        if ( veiksmas.equals("pakeisti") ) {
         	
         	Produktai produktas = new Produktai();// id, pav;
         	Optional <Produktai> found = produktai_rep.findById( id );
@@ -97,8 +93,7 @@ public class PageController {
 		@RequestParam(name="id", required=true) Integer id
 		, @RequestParam(name="pav", required=false) String pav
 		, @RequestParam(name="kiekis", required=false) Double kiekis
-		, @RequestParam(name="pildyti", required=false, defaultValue="nepildyti") String pildyti
-		, @RequestParam(name="keisti", required=false, defaultValue="nekeisti") String keisti
+		, @RequestParam(name="veiksmas", required=false, defaultValue="neveikti") String veiksmas
 		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
 		, Model model 
 	) {
@@ -111,13 +106,13 @@ public class PageController {
     		produktas = found.get();
     	}
     	
-    	if ( pildyti.equals("papildyti") ) {
+    	if ( veiksmas.equals("papildyti") ) {
     		Produktai_medziagos produktas_medziaga = new Produktai_medziagos();
     		produktai_medziagos_rep.save(produktas_medziaga);
 		    back_end_message.setMessage( "sarašas papildytas maistine medziaga '" + pav + "' ir kiekiu" );
 	    	back_end_message.setCss_class( "pranesimas_green" );
         }
-        if ( keisti.equals("pakeisti") ) {
+        if ( veiksmas.equals("pakeisti") ) {
     		Produktai_medziagos produktas_medziaga = new Produktai_medziagos();
         	Optional <Produktai_medziagos> found_produktas_medziaga = produktai_medziagos_rep.findById( id );
         	
@@ -157,15 +152,14 @@ public class PageController {
     		@RequestParam(name="id", required=false, defaultValue="") Integer id
     		, @RequestParam(name="pav", required=false, defaultValue="") String pav
     		, @RequestParam(name="id_grupes", required=false, defaultValue="") Integer id_grupes
-    		, @RequestParam(name="pildyti", required=false, defaultValue="nepildyti") String pildyti
-    		, @RequestParam(name="keisti", required=false, defaultValue="nekeisti") String keisti
+    		, @RequestParam(name="veiksmas", required=false, defaultValue="neveikti") String veiksmas
     		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
     		, Model model 
     	) {
 		
 		BackEndMessage back_end_message = new BackEndMessage ( "nieko dar neveikem", false, "pranesimas_grey" );
 		
-        if ( pildyti.equals("papildyti") ) {
+        if ( veiksmas.equals("papildyti") ) {
         	
         	List<Maistines_medz> lst_maist_medz = maistines_medz_rep.findByPav(pav);
         	
@@ -182,7 +176,7 @@ public class PageController {
 	    		back_end_message.setCss_class( "pranesimas_green" );
         	}
         }
-        if ( keisti.equals("pakeisti") ) {
+        if ( veiksmas.equals("pakeisti") ) {
         	Maistines_medz maistine_medz = new Maistines_medz();// id, pav;
         	Optional <Maistines_medz> found = maistines_medz_rep.findById( id );
         	
@@ -191,6 +185,7 @@ public class PageController {
         		maistine_medz = found.get();
         		maistine_medz.setId(id);
         		maistine_medz.setPav(pav);
+        		maistine_medz.setId_grupes(id_grupes);
         		maistines_medz_rep.save(maistine_medz);
         	}
 
@@ -217,15 +212,14 @@ public class PageController {
     public String maisto_medz_grupes(
     		@RequestParam(name="id", required=false, defaultValue="") Integer id
     		, @RequestParam(name="pav", required=false, defaultValue="") String pav
-    		, @RequestParam(name="pildyti", required=false, defaultValue="nepildyti") String pildyti
-    		, @RequestParam(name="keisti", required=false, defaultValue="nekeisti") String keisti
+    		, @RequestParam(name="veiksmas", required=false, defaultValue="neveikti") String veiksmas
     		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
     		, Model model 
     	) {
         
 		BackEndMessage back_end_message = new BackEndMessage ( "nieko dar neveikem", false, "pranesimas_grey" );
 		
-		if ( pildyti.equals("papildyti") ) {
+		if ( veiksmas.equals("papildyti") ) {
         	
         	List<Maisto_medz_grupes> lst_maist_medz_grup = maisto_medz_grupes_rep.findByPav(pav);
         	
@@ -242,7 +236,7 @@ public class PageController {
 	    		back_end_message.setCss_class( "pranesimas_green" );
         	}
         }
-        if ( keisti.equals("pakeisti") ) {
+        if ( veiksmas.equals("pakeisti") ) {
         	
         	Maisto_medz_grupes maisto_medz_grupe = new Maisto_medz_grupes();// id, pav );
         	Optional <Maisto_medz_grupes> found = maisto_medz_grupes_rep.findById( id );
@@ -289,15 +283,14 @@ public class PageController {
     		, @RequestParam(name="id_produkto", required=false, defaultValue="") Integer id_produkto
     		, @RequestParam(name="id_medziagos", required=false, defaultValue="") Integer id_medziagos
     		, @RequestParam(name="kiekis", required=false, defaultValue="0") Double kiekis
-    		, @RequestParam(name="pildyti", required=false, defaultValue="nepildyti") String pildyti
-    		, @RequestParam(name="keisti", required=false, defaultValue="nekeisti") String keisti
+    		, @RequestParam(name="veiksmas", required=false, defaultValue="neveikti") String veiksmas
     		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
     		, Model model 
     	) {
 		
 		BackEndMessage back_end_message = new BackEndMessage ( "nieko dar neveikem", false, "pranesimas_grey" );
 		
-        if ( pildyti.equals("papildyti") ) {
+        if ( veiksmas.equals("papildyti") ) {
         	
         	Produktai_medziagos produktas_medziaga = new Produktai_medziagos( id, id_produkto, id_medziagos, kiekis);
         	produktai_medziagos_rep.save( produktas_medziaga );
@@ -305,7 +298,7 @@ public class PageController {
     		back_end_message.setCss_class( "pranesimas_green" );
         }
       
-        if ( keisti.equals("pakeisti") ) {
+        if ( veiksmas.equals("pakeisti") ) {
         	Produktai_medziagos produktas_medziaga = new Produktai_medziagos();// id, id_produkto, id_medziagos, kiekis );
         	Optional <Produktai_medziagos> found = produktai_medziagos_rep.findById( id );
         	
