@@ -17,14 +17,16 @@ public class Produktai {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     private String pav;
+    private Integer kilme;
     
     @OneToMany(mappedBy="produktai",cascade=CascadeType.ALL)
     private List<Produktai_medziagos> produktai_medziagos;    
    
-	public Produktai(Integer id, String pav) {
+	public Produktai(Integer id, String pav, Integer kilme) {
 		super();
 		this.id = id;
 		this.pav = pav;
+		this.kilme = kilme;
 		
 	}
 	
@@ -54,6 +56,14 @@ public class Produktai {
 	 */
 	public void setPav(String pav) {
 		this.pav = pav;
+	}
+	
+	public Integer getKilme() {
+		return kilme;
+	}
+
+	public void setKilme(Integer kilme) {
+		this.kilme = kilme;
 	}
 
 	public List<Produktai_medziagos> getProduktai_medziagos() {

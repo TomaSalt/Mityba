@@ -30,6 +30,7 @@ public class PageController {
     public String produktai(
     		@RequestParam(name="id", required=false, defaultValue="") Integer id
     		, @RequestParam(name="pav", required=false, defaultValue="") String pav
+    		, @RequestParam(name="check_gyv", required=false, defaultValue="0") Integer kilme
     		, @RequestParam(name="veiksmas", required=false, defaultValue="neveikti") String veiksmas
     		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
     		, Model model 
@@ -48,7 +49,7 @@ public class PageController {
         		
         	} else {
         		
-	        	Produktai produktas = new Produktai( id, pav );
+	        	Produktai produktas = new Produktai( id, pav, kilme );
 	        	produktai_rep.save( produktas );
         		back_end_message.setMessage( "sarašas papildytas produktu '" + pav + "'" );
         		back_end_message.setCss_class( "pranesimas_green" );	        	
@@ -65,6 +66,7 @@ public class PageController {
         		produktas = found.get();
         		produktas.setId(id);
         		produktas.setPav(pav);
+        		produktas.setKilme(kilme);
         		produktai_rep.save(produktas);
         	}
 

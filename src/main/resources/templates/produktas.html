@@ -205,7 +205,9 @@
 				<label for="pav">Produkto pavadinimas</label>
 				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all">
 				<input type="hidden" name="veiksmas" id="veiksmas"value="papildyti">
-				<input type="hidden" name="id" id="id_taisomo_iraso" value="0">				
+				<input type="hidden" name="id" id="id_taisomo_iraso" value="0">
+				<input type="checkbox" name="check_gyv" id="check_gyv" value="1">
+				<label for="check_gyv"> gyvulines kilmes </label><br>
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<!-- input type="submit" tabindex="-1" style="position:absolute; top:-1000px" name="pildyti" value="papildyti" -->
 				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
@@ -220,6 +222,7 @@
 			<tr>
 				<th>Veiksmai</th>
 				<th>Produkto pavadinimas</th>
+				<th>Kilmė</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -230,6 +233,8 @@
 				</td>
 				<td>
 					<a th:href="@{/produktas(id=${produktas.getId()})}" th:text="${produktas.getPav()}"></a>
+				</td>
+				<td th:text="${produktas.getKilme()}==1 ? 'gyvuline' : 'augaline'">
 				</td>
 			</tr>
 			</tbody>
