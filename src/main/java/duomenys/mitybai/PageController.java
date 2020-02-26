@@ -91,7 +91,9 @@ public class PageController {
 	@RequestMapping(path="/produktas", method={ RequestMethod.GET, RequestMethod.POST })
 	public String produktas1(
 		@RequestParam(name="id", required=true) Integer id
+		,@RequestParam(name="id_prod_medz", required=false) Integer id_prod_medz 	
 		, @RequestParam(name="pav", required=false) String pav
+
 		, @RequestParam(name="kiekis", required=false) Double kiekis
 		, @RequestParam(name="veiksmas", required=false, defaultValue="neveikti") String veiksmas
 		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
@@ -114,12 +116,14 @@ public class PageController {
         }
         if ( veiksmas.equals("pakeisti") ) {
     		Produktai_medziagos produktas_medziaga = new Produktai_medziagos();
-        	Optional <Produktai_medziagos> found_produktas_medziaga = produktai_medziagos_rep.findById( id );
+    		System.out.println( "Produkto medziagos id: " + id_prod_medz );    		
+        	Optional <Produktai_medziagos> found_produktas_medziaga = produktai_medziagos_rep.findById( id_prod_medz );
         	
         	if ( found.isPresent() ) {
     			
         		produktas_medziaga = found_produktas_medziaga.get();
         		produktas_medziaga.setKiekis(kiekis);
+        		System.out.println( "Produkto medziaga: " + produktas_medziaga.toString() );
         		produktai_medziagos_rep.save(produktas_medziaga);
         	}
 

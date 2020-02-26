@@ -78,7 +78,7 @@
 		function addProduct() {
 			var valid = true;
 			 allFields.removeClass( "ui-state-error" );
-			valid = valid && checkLength( pav, "Maistinės medžiagos pavadinimo", 3, 16 );
+			valid = valid && checkLength( pav, "Maistinės medžiagos pavadinimo", 3, 25 );
 			valid = valid && checkLength( id_grupes, "ID_grupės", 1, 16 ); /*
 			valid = valid && checkRegexp( id_produkto, /Number, "id_produkto turi buti sudarytas is skaiciu 0-9. Minimalus skaiciu kiekis 1, maksimalus 16." );
 			valid = valid && checkRegexp(  id_medziagos, /Number, "id_produkto turi buti sudarytas is skaiciu 0-9. Minimalus skaiciu kiekis 1, maksimalus 16." );

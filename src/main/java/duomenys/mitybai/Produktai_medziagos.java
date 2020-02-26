@@ -84,6 +84,14 @@ public class Produktai_medziagos {
 	public void setKiekis(Double kiekis) {
 		this.kiekis = kiekis;
 	}
+
+	@Override
+	public String toString() {
+		return "Produktai_medziagos [id=" + id + ", produktai_id=" + produktai_id + ", maistines_medz_id="
+				+ maistines_medz_id + ", kiekis=" + kiekis + "]";
+	}
+	
+	
 	
 /*	
 	@ManyToOne
