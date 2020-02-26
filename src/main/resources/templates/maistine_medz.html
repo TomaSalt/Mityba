@@ -149,6 +149,8 @@
 			}
 		});
 		$( "#create-product" ).button().on( "click", function() {
+		
+			$( '#pav_veiksmo' ).html ( 'Kuriamas naujas įrašas' );
 			dialog.dialog( "open" );
 		});
 		$( ".keisti" ).each ( function() {
@@ -157,7 +159,8 @@
 			
 				id = $( this ).data( 'id' );
 				$( '#id_taisomo_iraso' ).val ( id );
-				$( '#pav_taisomo_iraso' ).html ( $( this ).data ( 'pav' ) );			
+				$( '#pav_veiksmo' ).html (  'Koreguojamas įrašas' );
+				$('#pav').val( $( this ).data ( 'pav' ));			
 				dialog.dialog( "open" );	
 			});
 		});

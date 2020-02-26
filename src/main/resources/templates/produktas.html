@@ -158,6 +158,8 @@
 			}
 		});
 		$( "#create-product" ).button().on( "click", function() {
+		
+			$( '#pav_veiksmo' ).html ( 'Kuriamas naujas įrašas' );
 			dialog.dialog( "open" );
 		});
 		$( ".keisti" ).each ( function() {
@@ -166,7 +168,8 @@
 			
 				id = $( this ).data( 'id' );
 				$( '#id_taisomo_iraso' ).val ( id );
-				$( '#pav_taisomo_iraso' ).html ( $( this ).data ( 'pav' ) );			
+				$( '#pav_veiksmo' ).html (  'Koreguojamas įrašas' );
+				$('#pav').val( $( this ).data ( 'pav' ));
 				dialog.dialog( "open" );	
 			});
 		});
@@ -176,7 +179,7 @@
 			
 				id = $( this ).data( 'id' );
 				$( '#id_salinamo_iraso' ).val ( id );
-				$( '#pav_salinamo_iraso' ).html ( $( this ).data ( 'pav' ) );			
+				$( '#pav_salinamo_iraso' ).html ( $( this ).data ( 'pav' ) );				
 				trintidialog.dialog( "open" );	
 			});
 		});
@@ -192,9 +195,9 @@
 			</li>
 		</ul>
 	</div>
-	<div id="dialog-form" title="Sukurti naują įrašą">
+	<div id="dialog-form" title="Produktas">
 		<p class="validateTips">Visi laukai privalomi</p>
-		<span id="pav_taisomo_iraso">Šis</span> įrašas bus pakeistas. Ar tikrai norite pakeisti įrašą?</p>
+		<p id="pav_veiksmo"></p>
 		<form id="produkto_forma" method="POST">
 			<fieldset>
 				<label for="pav">Produkto pavadinimas</label>
