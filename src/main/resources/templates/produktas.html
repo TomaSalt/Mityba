@@ -52,6 +52,7 @@
 		// From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
 		emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
 		pav = $( "#pav" ),
+		id = $("#id"),
 		allFields = $( [] ).add( pav),
 		tips = $( ".validateTips" );
 	 
@@ -168,10 +169,11 @@
 			$( this ).on( "click", function() {
 			
 				id = $( this ).data( 'id' );
-				$( '#id_taisomo_iraso' ).val ( id );
+				$( '#id_taisomo_iraso' ).val ( id_prod_medz );
 				$( '#pav_veiksmo' ).html (  'Koreguojamas įrašas' );
 				$('#pav').val( $( this ).data ( 'pav' ));
 				$( '#veiksmas' ).val ( 'pakeisti' );
+				$('#check_gyv').prop('checked', true);
 				dialog.dialog( "open" );	
 			});
 		});
@@ -180,7 +182,7 @@
 			$( this ).on( "click", function() {
 			
 				id = $( this ).data( 'id' );
-				$( '#id_salinamo_iraso' ).val ( id );
+				$( '#id_salinamo_iraso' ).val ( id_prod_medz );
 				$( '#pav_salinamo_iraso' ).html ( $( this ).data ( 'pav' ) );				
 				trintidialog.dialog( "open" );	
 			});
@@ -205,7 +207,7 @@
 				<label for="pav">Produkto pavadinimas</label>
 				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all">
 				<input type="hidden" name="veiksmas" id="veiksmas"value="papildyti">
-				<input type="hidden" name="id" id="id_taisomo_iraso" value="0">
+				<input type="hidden" name="id_prod_medz" id="id_taisomo_iraso" value="0">
 				<input type="checkbox" name="check_gyv" id="check_gyv" value="1">
 				<label for="check_gyv"> gyvulines kilmes </label><br>
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
@@ -245,7 +247,7 @@
 		<p>Šis įrašas <span id="pav_salinamo_iraso"></span> bus ištrintas ir nebus įmanoma jo atkurti. Ar tikrai norite ištrinti įrašą?</p>
 		<form id="salinimo_forma" method="POST">
 			<input type="hidden" name="salinti" value="pasalinti">
-			<input type="hidden" name="id" id="id_salinamo_iraso" value="0">
+			<input type="hidden" name="id_prod_medz" id="id_salinamo_iraso" value="0">
 			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 		</form>
 	</div>

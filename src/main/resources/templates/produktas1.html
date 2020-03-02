@@ -51,7 +51,7 @@
 	
 		var dialog, form,
 		pav = $( "#pav" ),
-		kiekis = $("#kiekis")
+		kiekis = $("#kiekis"),
 		allFields = $( [] ).add( pav ).add( kiekis ),
 		tips = $( ".validateTips" );
 	 
@@ -167,8 +167,12 @@
 		
 			$( this ).on( "click", function() {
 			
-				id = $( this ).data( 'id' );
-				$( '#id_taisomo_iraso' ).val ( id );
+				id_prod_medz = $( this ).data( 'id' );
+				id_medz = $( this ).data( 'id_medz');
+				kiekis = $(this).data('kiekis');
+				$('#id_medziagos').val(id_medz);
+				$('#kiekis').val(kiekis);
+				$( '#id_taisomo_iraso' ).val ( id_prod_medz );
 				$( '#pav_veiksmo' ).html (  'Koreguojamas įrašas' );
 				$('#pav').val( $( this ).data ( 'pav' ));		
 				$( '#veiksmas' ).val ( 'pakeisti' );				
@@ -179,8 +183,8 @@
 		
 			$( this ).on( "click", function() {
 			
-				id = $( this ).data( 'id' );
-				$( '#id_salinamo_iraso' ).val ( id );
+				id_prod_medz = $( this ).data( 'id' );
+				$( '#id_salinamo_iraso' ).val ( id_prod_medz );
 				$( '#pav_salinamo_iraso' ).html ( $( this ).data ( 'pav' ) );			
 				trintidialog.dialog( "open" );	
 			});
@@ -203,8 +207,11 @@
 		<form id="produkto_forma" method="POST">
 			<fieldset>
 				<label for="pav">Maistinės medžiagos pavadinimas</label>
-				<select id="pav">
-					<option th:each="medziaga : ${visos_medziagos}" th:attr="value=${medziaga.getId()}" th:text= "${medziaga.getPav()}"></option>
+				<select id="id_medziagos" name="id_medziagos">
+					<option th:each="medziaga : ${visos_medziagos}" 
+						th:attr="value=${medziaga.getId()}" 
+						th:text= "${medziaga.getPav()}" 
+					</option>
 				</select>
 				<label for="kiekis">Kiekis</label>
 				<input type="number" name="kiekis" id="kiekis" value="0" class="text ui-widget-content ui-corner-all">
@@ -230,7 +237,7 @@
 			<tbody>
 			<tr th:each="medziaga : ${medziagos}">
 				<td>
-					<input type="button" class="keisti" value="keisti" id="keisti" th:attr="data-id=${medziaga.getId()},data-pav=${medziaga.getMaistines_medz().getPav()}">
+					<input type="button" class="keisti" value="keisti" id="keisti" th:attr="data-id=${medziaga.getId()},data-pav=${medziaga.getMaistines_medz().getPav()},data-id_medz=${medziaga.getMaistines_medz().getId()},data-kiekis=${medziaga.getKiekis()}">
 					<input type="button" class="salinti" value="šalinti" id="salinti" th:attr="data-id=${medziaga.getId()},data-pav=${medziaga.getMaistines_medz().getPav()}">
 				</td>
 				<td th:text="${medziaga.getMaistines_medz().getPav()}">
@@ -246,7 +253,7 @@
 		<p>Šis įrašas <span id="pav_salinamo_iraso"></span> bus ištrintas ir nebus įmanoma jo atkurti. Ar tikrai norite ištrinti įrašą?</p>
 		<form id="salinimo_forma" method="POST">
 			<input type="hidden" name="salinti" value="pasalinti">
-			<input type="hidden" name="id" id="id_salinamo_iraso" value="0">
+			<input type="hidden" name="id_prod_medz" id="id_salinamo_iraso" value="0">
 			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 		</form>
 	</div>

@@ -11,7 +11,8 @@ public enum Menu {
 	Produktai("/produktai", "Produktai")
 	, Maistines_medz("/maistines_medz", "Maistinės medžiagos")
 	, Maisto_medz_grupes("/maisto_medz_grupes", "Maisto medžiagų grupės")
-	, Produktai_medziagos("/produktai_medziagos", "Produkto medžiagų kiekis");
+	, Produktai_medziagos("/produktai_medziagos", "Produkto medžiagų kiekis")
+	, Paieska("/paieska", "Paieška");
 	
 	private final String itemurl;
 	private final String naujasPavadinimas;

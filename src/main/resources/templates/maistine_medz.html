@@ -196,7 +196,10 @@
 				<label for="pav">Maistinės medžiagos pavadinimas</label>
 				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all">
 				<label for="id_grupes">ID_grupės</label>
-				<input type="number" name="id_grupes" id="id_grupes" value="" class="text ui-widget-content ui-corner-all">
+				<select name="id_grupes"> 
+					<option th:each="maisto_medz_grupe: ${lst}" th:value="${maisto_medz_grupe.getId()}" th:text="${maisto_medz_grupe.getId_grupes()}">
+					</option>
+				</select>
 				<input type="hidden" name="veiksmas" id="veiksmas" value="papildyti">				
 				<input type="hidden" name="id" id="id_taisomo_iraso" value="0">
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
