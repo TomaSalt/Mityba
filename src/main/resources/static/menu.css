@@ -22,7 +22,7 @@
 /* another RGBA background, now with an opacity of 0.8 */
 #menu ul li a.active { background: rgba(255,138,30,0.8) !important; }
 /* main contents with RGBA background (same colour as active tab) and three rounded corners */
-#main { clear:both; background: rgba(255,138,30,0.8); width:800px; margin-left:150px; height: 1000px;
+#main { clear:both; background: rgba(255,138,30,0.8); width:800px; margin-left:150px; height:100%; min-height: 1000px;
    -moz-border-radius-topright: 12px; -moz-border-radius-bottomright: 12px; -moz-border-radius-bottomleft: 12px;
    -webkit-border-top-right-radius:12px; -webkit-border-bottom-right-radius:12px; -webkit-border-bottom-left-radius:12px;}
    
