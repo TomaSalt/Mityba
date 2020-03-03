@@ -20,7 +20,8 @@
 		emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
 		pav = $( "#pav" ),
 		id = $("#id"),
-		allFields = $( [] ).add( pav),
+		kilme = $("#kilme")
+		allFields = $( [] ).add( pav).add(kilme),
 		tips = $( ".validateTips" );
 	 
 		function updateTips( t ) {
@@ -140,7 +141,9 @@
 				$( '#pav_veiksmo' ).html (  'Koreguojamas įrašas' );
 				$('#pav').val( $( this ).data ( 'pav' ));
 				$( '#veiksmas' ).val ( 'pakeisti' );
-				$('#check_gyv').prop('checked', true);
+				kilme = $( this ).data( 'kilme' );
+				if ( kilme == 1){
+				$('#kilme').prop('checked', true);}
 				dialog.dialog( "open" );	
 			});
 		});
@@ -173,10 +176,10 @@
 			<fieldset>
 				<label for="pav">Produkto pavadinimas</label>
 				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all">
-				<input type="hidden" name="veiksmas" id="veiksmas"value="papildyti">
+				<input type="hidden" name="veiksmas" id="veiksmas" value="papildyti">
 				<input type="hidden" name="id" id="id_taisomo_iraso" value="0">
-				<input type="checkbox" name="check_gyv" id="check_gyv" value="1">
-				<label for="check_gyv"> gyvulines kilmes </label><br>
+				<input type="checkbox" name="kilme" id="kilme" value="1">
+				<label for="kilme"> gyvulines kilmes </label><br>
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<!-- input type="submit" tabindex="-1" style="position:absolute; top:-1000px" name="pildyti" value="papildyti" -->
 				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
@@ -197,7 +200,7 @@
 			<tbody>
 			<tr th:each="produktas : ${lst}">
 				<td>
-					<input type="button" class="keisti" value="keisti" id="keisti" th:attr="data-id=${produktas.getId()},data-pav=${produktas.getPav()}">
+					<input type="button" class="keisti" value="keisti" id="keisti" th:attr="data-id=${produktas.getId()},data-pav=${produktas.getPav()}, data-kilme=${produktas.getKilme()}">
 					<input type="button" class="salinti" value="šalinti" id="salinti" th:attr="data-id=${produktas.getId()},data-pav=${produktas.getPav()}">
 				</td>
 				<td>

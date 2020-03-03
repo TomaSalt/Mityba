@@ -73,7 +73,7 @@ public class PageController {
     public String produktai(
     		@RequestParam(name="id", required=false, defaultValue="") Integer id
     		, @RequestParam(name="pav", required=false, defaultValue="") String pav
-    		, @RequestParam(name="check_gyv", required=false, defaultValue="0") Integer kilme
+    		, @RequestParam(name="kilme", required=false, defaultValue="0") Integer kilme
     		, @RequestParam(name="veiksmas", required=false, defaultValue="neveikti") String veiksmas
     		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
     		, Model model 
@@ -211,7 +211,7 @@ public class PageController {
     public String maistines_medz(
     		@RequestParam(name="id", required=false, defaultValue="") Integer id
     		, @RequestParam(name="pav", required=false, defaultValue="") String pav
-    		, @RequestParam(name="id_grupes", required=false, defaultValue="") Integer id_grupes
+    		, @RequestParam(name="maisto_medz_grupes_id", required=false, defaultValue="") Integer maisto_medz_grupes_id
     		, @RequestParam(name="veiksmas", required=false, defaultValue="neveikti") String veiksmas
     		, @RequestParam(name="salinti", required=false, defaultValue="nesalinti") String salinti
     		, Model model 
@@ -230,7 +230,7 @@ public class PageController {
         		
         	} else {
         	
-	        	Maistines_medz maistine_medz = new Maistines_medz( id, pav, id_grupes );
+	        	Maistines_medz maistine_medz = new Maistines_medz( id, pav, maisto_medz_grupes_id );
 	        	maistines_medz_rep.save( maistine_medz );
 	    		back_end_message.setMessage( "sarašas papildytas maistine medziaga '" + pav + "'" );
 	    		back_end_message.setCss_class( "pranesimas_green" );
@@ -245,7 +245,7 @@ public class PageController {
         		maistine_medz = found.get();
         		maistine_medz.setId(id);
         		maistine_medz.setPav(pav);
-        		maistine_medz.setId_grupes(id_grupes);
+        		maistine_medz.setMaisto_medz_grupes_id(maisto_medz_grupes_id);
         		maistines_medz_rep.save(maistine_medz);
         	}
 

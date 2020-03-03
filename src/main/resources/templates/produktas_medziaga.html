@@ -139,6 +139,12 @@
 			
 				id = $( this ).data( 'id' );
 				$( '#id_taisomo_iraso' ).val ( id );
+				id_produkto = $( this ).data( 'id_produkto' );
+				$('#id_produkto').val (id_produkto);
+				id_medziagos = $( this ).data( 'id_medziagos' );
+				$('#id_medziagos').val(id_medziagos);
+				kiekis = $( this ).data( 'kiekis' );
+				$('#kiekis').val(kiekis);
 				$( '#pav_veiksmo' ).html (  'Koreguojamas įrašas' );
 				$('#pav').val( $( this ).data ( 'pav' ));	
 				$( '#veiksmas' ).val ( 'pakeisti' );				
@@ -177,7 +183,7 @@
 				<label for="id_medziagos">ID_medžiagos</label>
 				<input type="number" name="id_medziagos" id="id_medziagos" value="0" class="text ui-widget-content ui-corner-all">
 				<label for="kiekis">Kiekis</label>
-				<input type="number" name="kiekis" id="kiekis" value="" class="text ui-widget-content ui-corner-all">
+				<input type="number" name="kiekis" id="kiekis" value="0" class="text ui-widget-content ui-corner-all">
 				<input type="hidden" name="veiksmas" id="veiksmas"value="papildyti">				
 				<input type="hidden" name="id" id="id_taisomo_iraso" value="0">				
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
@@ -205,10 +211,10 @@
 					Veiksmai
 				</th>
 				<th> 
-					ID_produkto
+					Produkto pavadinimas
 				</th>
 				<th> 
-					ID_medžiagos
+					Maistinės medžiagos pavadinimas
 				</th>
 				<th>
 					Kiekis
@@ -218,11 +224,11 @@
 			<tbody>
 			<tr th:each="produktas_medziaga : ${lst}">
 				<td>
-					<input type="button" class="keisti" value="keisti" th:attr="data-id=${produktas_medziaga.getId()},data-id_produkto=${produktas_medziaga.getProduktai_id()},data-id_medziagos=${produktas_medziaga.getMaistines_medz_id()},data-id_medziagos=${produktas_medziaga.getKiekis()}">
+					<input type="button" class="keisti" value="keisti" th:attr="data-id=${produktas_medziaga.getId()},data-id_produkto=${produktas_medziaga.getProduktai_id()},data-id_medziagos=${produktas_medziaga.getMaistines_medz_id()},data-id_kiekis=${produktas_medziaga.getKiekis()}">
 					<input type="button" class="salinti" value="šalinti" th:attr="data-id=${produktas_medziaga.getId()}">				
 				</td>
-				<td th:text="${produktas_medziaga.getProduktai_id()}"></td>
-				<td th:text="${produktas_medziaga.getMaistines_medz_id()}"></td>
+				<td th:text="${produktas_medziaga.getProduktai().getPav()}"></td>
+				<td th:text="${produktas_medziaga.getMaistines_medz().getPav()}"></td>
 				<td th:text="${produktas_medziaga.getKiekis()}"></td>
 			</tr>
 			</tbody>

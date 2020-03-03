@@ -17,9 +17,9 @@
 	
 		var dialog, form,
 		pav = $( "#pav" ),
-		id_grupes = $( "#id_grupes" ),
-		kiekis = $( "#kiekis" ),
-		allFields = $( [] ).add( pav ).add( id_grupes );
+		maisto_medz_grupes_id = $( "#maisto_medz_grupes_id" ),
+	
+		allFields = $( [] ).add( pav ).add( maisto_medz_grupes_id );
 		tips = $( ".validateTips" );
 	 
 		//isveda pranesima apie nepavykusia validacija
@@ -137,9 +137,9 @@
 			$( this ).on( "click", function() {
 			
 				id = $( this ).data( 'id' );
-				pav_grup = $( this ).data( 'pav_grup' );
-				$( '#id_grupes' ).val ( pav_grup );
 				$( '#id_taisomo_iraso' ).val ( id );
+				id_grup = $( this ).data( 'id_grup' );
+				$( '#maisto_medz_grupes_id' ).val ( id_grup );
 				$( '#pav_veiksmo' ).html (  'Koreguojamas įrašas' );
 				$( '#pav' ).val( $( this ).data ( 'pav' ) );	
 				$( '#veiksmas' ).val ( 'pakeisti' );
@@ -175,12 +175,12 @@
 			<fieldset>
 				<label for="pav">Maistinės medžiagos pavadinimas</label>
 				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all">
-				<label for="id_grupes">ID_grupės</label>
-				<select id="id_grupes" name="id_grupes"> 
+				<label for="maisto_medz_grupes_id">Maisto medžiagų grupė</label>
+				<select id="maisto_medz_grupes_id" name="maisto_medz_grupes_id"> 
 					<option th:each="maisto_medziagu_grupes : ${maist_medz_grupes}" 
 						th:value="${maisto_medziagu_grupes.getId()}" 
 						th:text="${maisto_medziagu_grupes.getPav()}"
-						th:selected="${maisto_medziagu_grupes.getId()}==${id_grupes}">
+						th:selected="${maisto_medziagu_grupes.getId()}==${maisto_medz_grupes_id}">
 					</option>
 				</select>
 				<input type="hidden" name="veiksmas" id="veiksmas" value="papildyti">				
@@ -212,18 +212,18 @@
 					Maistinės medžiagos pavadinimas
 				</th>			
 				<th>
-					ID_grupės
+					Maisto medžiagų grupės pavadinimas
 				</th>
 			</tr>
 			</thead>
 			<tbody>
 			<tr th:each="maistine_medz : ${lst}">
 				<td>
-					<input type="button" class="keisti" value="keisti" th:attr="data-id=${maistine_medz.getId()},data-pav=${maistine_medz.getPav()},data-pav_grup=${maistine_medz.maisto_medz_grupes().getPav()}">
+					<input type="button" class="keisti" value="keisti" th:attr="data-id=${maistine_medz.getId()},data-pav=${maistine_medz.getPav()},data-id_grup=${maistine_medz.getMaisto_medz_grupes_id()}">
 					<input type="button" class="salinti" value="šalinti" th:attr="data-id=${maistine_medz.getId()},data-pav=${maistine_medz.getPav()}">				
 				</td>
 				<td th:text="${maistine_medz.getPav()}"></td>
-				<td th:text="${maistine_medz.maisto_medz_grupes().getPav()}"></td>
+				<td th:text="${maistine_medz.getMaisto_medz_grupes().getPav()}"></td>
 			</tr>
 			</tbody>
 		</table>

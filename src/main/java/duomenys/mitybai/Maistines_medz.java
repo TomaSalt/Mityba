@@ -20,7 +20,7 @@ public class Maistines_medz {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     private String pav;
-    private Integer id_grupes;
+    private Integer maisto_medz_grupes_id;
     
     
     @JsonIgnoreProperties("maistines_medz")
@@ -48,11 +48,11 @@ public class Maistines_medz {
 		this.maisto_medz_grupes = maisto_medz_grupes;
 	}
 
-	public Maistines_medz(Integer id, String pav, Integer id_grupes) {
+	public Maistines_medz(Integer id, String pav, Integer maisto_medz_grupes_id) {
 		super();
 		this.id = id;
 		this.pav = pav;
-		this.id_grupes = id_grupes;
+		this.maisto_medz_grupes_id = maisto_medz_grupes_id;
 		
 	}
 	
@@ -85,15 +85,15 @@ public class Maistines_medz {
 	/**
 	 * @return the id_grupes
 	 */
-	public Integer getId_grupes() {
-		return id_grupes;
+	public Integer getMaisto_medz_grupes_id() {
+		return maisto_medz_grupes_id;
 	}
 
 	/**
 	 * @param pav the id_grupes to set
 	 */
-	public void setId_grupes(Integer id_grupes) {
-		this.id_grupes = id_grupes;
+	public void setMaisto_medz_grupes_id(Integer maisto_medz_grupes_id) {
+		this.maisto_medz_grupes_id = maisto_medz_grupes_id;
 	}
 
 	/*public String Id_grupes_string() {
