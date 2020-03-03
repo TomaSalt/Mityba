@@ -10,6 +10,9 @@ public class BackEndMessage {
 	boolean flag_reopen_form;
 	
 	public BackEndMessage() {
+		
+		message = "";
+		css_class = "";
 	}	
 
 	public BackEndMessage(String message, boolean flag_reopen_form, String css_klase) {
@@ -25,6 +28,11 @@ public class BackEndMessage {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	
+	public void addMessage( String add_message ) {
+	
+		this.message += add_message; 
 	}
 
 	public boolean isFlag_reopen_form() {

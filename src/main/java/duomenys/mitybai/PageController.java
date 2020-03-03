@@ -153,11 +153,12 @@ public class PageController {
     	if ( veiksmas.equals("papildyti") ) {
     		
     		Produktai_medziagos produktas_medziaga = new Produktai_medziagos();
+    	
     		produktas_medziaga.setProduktai_id(id);
     		produktas_medziaga.setMaistines_medz_id(id_medziagos);
     		produktas_medziaga.setKiekis(kiekis);
     		produktai_medziagos_rep.save(produktas_medziaga);
-		    back_end_message.setMessage( "sarašas papildytas maistine medziaga '" + pav + "' ir kiekiu " + kiekis);
+		    back_end_message.setMessage( "sarašas papildytas maistine medziaga '" + id_medziagos  + "' ir kiekiu " + kiekis );
 	    	back_end_message.setCss_class( "pranesimas_green" );
         }
     	
@@ -192,13 +193,15 @@ public class PageController {
 			
     		produktas = found.get();
     		System.out.println( "medziagu sk (2).:" + produktas.getProduktai_medziagos().size() );
+    		
+    		back_end_message.addMessage( "<br> dabar medziagu yra: " + produktas.getProduktai_medziagos().size() );	
     	}
     	
     	//
     	//Optional <Produktai_medziagos> found = produktai_medziagos_rep.findById_produkto(id_produkto);
 
         model.addAttribute( "back_end_message", back_end_message );
-        model.addAttribute("lst_menu", Menu.values() ); 
+        model.addAttribute( "lst_menu", Menu.values() ); 
         model.addAttribute( "medziagos", produktas.getProduktai_medziagos() );	
         model.addAttribute( "visos_medziagos", maistines_medz_rep.findAll() );
 		return "produktas1";
@@ -257,9 +260,10 @@ public class PageController {
         	maistines_medz_rep.deleteById(id);
  		
  			}
- 
+
         }
         model.addAttribute( "back_end_message", back_end_message );
+        model.addAttribute("maist_medz_grupes", maisto_medz_grupes_rep.findAll());
         model.addAttribute("lst_menu", Menu.values() ); 
         model.addAttribute("lst", maistines_medz_rep.findAll() );
         

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -24,14 +26,26 @@ public class Maistines_medz {
     @JsonIgnoreProperties("maistines_medz")
     @OneToMany(mappedBy = "maistines_medz",cascade = CascadeType.ALL)   
     private List<Produktai_medziagos> produktai_medziagos;
-    
-   
-	public List<Produktai_medziagos> getProduktai_medziagos() {
+	
+    public List<Produktai_medziagos> getProduktai_medziagos() {
 		return produktai_medziagos;
 	}
 
 	public void setProduktai_medziagos(List<Produktai_medziagos> produktai_medziagos) {
 		this.produktai_medziagos = produktai_medziagos;
+	}
+	
+    @JsonIgnoreProperties("maistines_medz")
+    @ManyToOne
+    @JoinColumn(insertable=false, updatable=false)
+    private Maisto_medz_grupes maisto_medz_grupes;
+        
+	public Maisto_medz_grupes getMaisto_medz_grupes() {
+		return maisto_medz_grupes;
+	}
+
+	public void setMaisto_medz_grupes(Maisto_medz_grupes maisto_medz_grupes) {
+		this.maisto_medz_grupes = maisto_medz_grupes;
 	}
 
 	public Maistines_medz(Integer id, String pav, Integer id_grupes) {

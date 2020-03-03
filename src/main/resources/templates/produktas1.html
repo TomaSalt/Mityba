@@ -160,7 +160,7 @@
   </script>
 </head>
 <body>
-	<!--<p th:attr="class=${back_end_message.getCss_class()}"  th:text="${back_end_message.getMessage()}"></p>-->
+	<p th:attr="class=${back_end_message.getCss_class()}"  th:text="${back_end_message.getMessage()}"></p>
 	<div id="menu">
 		<ul id="menu_sarasas">
 			<li id="menu_punktas" th:each="menu_item : ${lst_menu}">
@@ -177,13 +177,14 @@
 				<select id="id_medziagos" name="id_medziagos">
 					<option th:each="medziaga : ${visos_medziagos}" 
 						th:attr="value=${medziaga.getId()}" 
-						th:text= "${medziaga.getPav()}" 
+						th:text= "${medziaga.getPav()}"
+						th:selected="${medziaga.getId()}==${id_medziagos}">
 					</option>
 				</select>
 				<label for="kiekis">Kiekis</label>
-				<input type="number" name="kiekis" id="kiekis" value="0" class="text ui-widget-content ui-corner-all">
+				<input type="number" name="kiekis" id="kiekis" value="" class="text ui-widget-content ui-corner-all">
 				<input type="hidden" name="veiksmas" id="veiksmas"value="papildyti">
-				<input type="hidden" name="id_prod_medz" id="id_taisomo_iraso" value="0">				
+				<input type="hidden" name="id_prod_medz" id="id_taisomo_iraso" value="">				
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<!-- input type="submit" tabindex="-1" style="position:absolute; top:-1000px" name="pildyti" value="papildyti" -->
 				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">

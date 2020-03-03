@@ -6,47 +6,9 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
 	<link rel="stylesheet" href="menu.css">
-	<title>Produktai</title>
+	<link rel="stylesheet" href="common.css">
+	<title>Paieška</title>
 <style>
-	body {
-			padding: 0px;
-			margin: 0px;
-			text-align: center;
-			width:100%;
-	}
-	input[type="text"], input.frm_button {
-			width: 250px;
-			margin-right: auto;
-	} 
-	
-	input.text { 
-		margin-bottom:12px;
-		width:95%; 
-		padding: .4em; 
-	}
-	fieldset {
-		padding:0;
-		border:0;
-		margin-top:25px; 
-	}
-	div#products-contain { width: 350px; margin: 20px 0; }
-	div#products-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
-	div#products-contain table td, div#products-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
-	.ui-dialog .ui-state-error { padding: .3em; }
-	.validateTips { border: 1px solid transparent; padding: 0.3em; }
-	.pranesimas_red {
-	
-		color: red;
-	}
-	.pranesimas_grey {
-	
-		color: lightgrey;		
-	}
-	.pranesimas_green {
-	
-		color: green;		
-	}
-	</style>
   </style>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -95,8 +57,10 @@
 		}
 	});
 	$( "#Produkto_paieska" ).button().on( "click", function() {
-		
-			$( '#pav_veiksmo' ).html ( 'Kuriamas naujas ira�as' );
+			
+			id_medz = $( this ).data( 'id_medz');
+			$('#id_medziagos').val(id_medz);
+			$( '#pav_veiksmo' ).html ( 'Kuriamas naujas irašas' );
 			$( '#veiksmas' ).val ( 'papildyti' );
 			dialog.dialog( "open" );
 	});
@@ -107,7 +71,7 @@
 	<div id="menu">
 		<ul id="menu_sarasas">
 			<li id="menu_punktas" th:each="menu_item : ${lst_menu}">
-				<a th:href="${menu_item.itemurl()}" th:text="${menu_item}"></a>
+				<a th:href="${menu_item.itemurl()}" th:text="${menu_item.naujasPavadinimas()}"></a>
 			</li>
 		</ul>
 	</div>
@@ -115,16 +79,16 @@
 <p id="pav_veiksmo"</p>
 
 <div id="main">
-<h3>Pagrindines maisto medziagos</h3>
+<h3>Paieška</h3>
 	<form id="produkto_forma" method="POST">
 		<fieldset>
-			<label for="pav">Produkto paieska</label>
+			<label for="pav"></label>
 				<div>
 					<input type="checkbox" name="check_aug" id="check_aug" value="1">
-					<label for="check_aug"> Augalines kilmes </label><br>
+					<label for="check_aug"> Augalines kilmes </label>
 					
 					<input type="checkbox" name="check_gyv" id="check_gyv" value="1">
-					<label for="check_gyv"> Gyvulines kilmes </label><br>
+					<label for="check_gyv"> Gyvulines kilmes </label>
 					
 				</div>
 				<input type="hidden" name="veiksmas" id="veiksmas"value="ieskoti">
