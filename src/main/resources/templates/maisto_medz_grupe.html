@@ -55,7 +55,7 @@
 		function addProduct() {
 			var valid = true;
 			 allFields.removeClass( "ui-state-error" );
-			valid = valid && checkLength( pav, "Maisto medžiagų grupės pavadinimo", 3, 16 );
+			valid = valid && checkLength( pav, "Maisto medžiagų grupės pavadinimo", 3, 30 );
  /*
 			valid = valid && checkRegexp( id_produkto, /Number, "id_produkto turi buti sudarytas is skaiciu 0-9. Minimalus skaiciu kiekis 1, maksimalus 16." );
 			valid = valid && checkRegexp(  id_medziagos, /Number, "id_produkto turi buti sudarytas is skaiciu 0-9. Minimalus skaiciu kiekis 1, maksimalus 16." );
@@ -160,7 +160,7 @@
 	<div id="menu">
 		<ul id="menu_sarasas">
 			<li id="menu_punktas" th:each="menu_item : ${lst_menu}">
-				<a th:href="${menu_item.itemurl()}" th:text="${menu_item.naujasPavadinimas()}"></a>
+				<a th:href="${menu_item.itemurl()}" th:text="${menu_item.naujasPavadinimas()}" th:attr="class=${menu_item.itemurl()}=='/maisto_medz_grupes' ? 'active' : 'zzz'"></a>
 			</li>
 		</ul>
 	</div>
@@ -170,7 +170,7 @@
 		<form id="produkto_forma" method="POST">
 			<fieldset>
 				<label for="pav">Maisto medžiagų grupės pavadinimas</label>
-				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all">
+				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all" required>
 				<input type="hidden" name="veiksmas" id="veiksmas"value="papildyti">				
 				<input type="hidden" name="id" id="id_taisomo_iraso" value="0">				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<!-- input type="submit" tabindex="-1" style="position:absolute; top:-1000px" name="pildyti" value="papildyti" -->

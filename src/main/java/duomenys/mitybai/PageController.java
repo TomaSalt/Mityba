@@ -204,6 +204,7 @@ public class PageController {
         model.addAttribute( "lst_menu", Menu.values() ); 
         model.addAttribute( "medziagos", produktas.getProduktai_medziagos() );	
         model.addAttribute( "visos_medziagos", maistines_medz_rep.findAll() );
+        model.addAttribute( "pavadinimas", produktas.getPav() );
 		return "produktas1";
 	}
 	

@@ -16,11 +16,11 @@
 	<script>
 	$( function() {
 	
-		var dialog, form,
-		pav = $( "#pav" ),
+		var dialog, form, id,
 		kiekis = $("#kiekis"),
-		allFields = $( [] ).add( pav ).add( kiekis ),
+		allFields = $( [] ).add( kiekis ),
 		tips = $( ".validateTips" );
+		$( '#id_produkto' ).val ( id );
 	 
 		function updateTips( t ) {
 		      tips
@@ -41,7 +41,17 @@
 				return true;
 		      }
 		}
-	 
+		function checkNumber( o, n, min, max ) {
+			if ( parseInt ( o.val() ) > max || parseInt ( o.val() ) < min ) {
+				o.addClass( "ui-state-error" );
+				updateTips( n +  " reikšmė turi būti tarp " +
+				  min + " ir " + max + "." );
+				return false;
+			} else {
+				return true;
+		      }
+		}
+		
 		function checkRegexp( o, regexp, n ) {
 			if ( !( regexp.test( o.val() ) ) ) {
 				o.addClass( "ui-state-error" );
@@ -54,9 +64,8 @@
 	 
 		function addProduct() {
 			var valid = true;
-			 allFields.removeClass( "ui-state-error" );
-		 
-			//valid = valid && checkLength( pav, "Produkto pavadinimo", 3, 16 );
+			allFields.removeClass( "ui-state-error" );
+			valid = valid && checkNumber( kiekis, "Kiekio ", 0, 1000 );
 
 			// valid = valid && checkRegexp( Pavadinimas, /^[a-z]([0-9a-z_\s])+$/i, "product may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
 	 
@@ -135,13 +144,14 @@
 			$( this ).on( "click", function() {
 			
 				id_prod_medz = $( this ).data( 'id' );
-				id_medz = $( this ).data( 'id_medz');
-				kiekis = $(this).data('kiekis');
-				$('#id_medziagos').val(id_medz);
-				$('#kiekis').val(kiekis);
 				$( '#id_taisomo_iraso' ).val ( id_prod_medz );
+				id_medz = $( this ).data( 'id_medz');
+				$('#id_medziagos').val(id_medz);
+				kiekis_val = $( this ).data( 'kiekis' );
+				$('#kiekis').val(kiekis_val);
+				//pav_val = $(this).data('pav');
+				$('#pav').val( $( this ).data ( 'pav' ));
 				$( '#pav_veiksmo' ).html (  'Koreguojamas įrašas' );
-				$('#pav').val( $( this ).data ( 'pav' ));		
 				$( '#veiksmas' ).val ( 'pakeisti' );				
 				dialog.dialog( "open" );	
 			});
@@ -173,8 +183,8 @@
 		<p id="pav_veiksmo"></p>
 		<form id="produkto_forma" method="POST">
 			<fieldset>
-				<label for="pav">Maistinės medžiagos pavadinimas</label>
-				<select id="id_medziagos" name="id_medziagos">
+				<label for="id_medziagos">Maistinės medžiagos pavadinimas</label>
+				<select id="id_medziagos" name="id_medziagos" required>
 					<option th:each="medziaga : ${visos_medziagos}" 
 						th:attr="value=${medziaga.getId()}" 
 						th:text= "${medziaga.getPav()}"
@@ -182,7 +192,7 @@
 					</option>
 				</select>
 				<label for="kiekis">Kiekis</label>
-				<input type="number" name="kiekis" id="kiekis" value="" class="text ui-widget-content ui-corner-all">
+				<input type="number" name="kiekis" id="kiekis" value="" class="text ui-widget-content ui-corner-all" required>
 				<input type="hidden" name="veiksmas" id="veiksmas"value="papildyti">
 				<input type="hidden" name="id_prod_medz" id="id_taisomo_iraso" value="">				
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
@@ -192,7 +202,8 @@
 		</form>
 	</div>
 	<div id="main">
-		<h3>Esamų maistinių medžiagų sąrašas su kiekiais</h3>
+		
+		<h3><span th:text="${pavadinimas}"></span><br>esamų maistinių medžiagų sąrašas su kiekiais</h3>
 		<button id="create-product">Irašyti maistinę medžiagą</button>
 		<table id="duombazes_lentele">
 			<thead>

@@ -20,8 +20,7 @@
 		emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
 		pav = $( "#pav" ),
 		id = $("#id"),
-		kilme = $("#kilme")
-		allFields = $( [] ).add( pav).add(kilme),
+		allFields = $( [] ).add( pav),
 		tips = $( ".validateTips" );
 	 
 		function updateTips( t ) {
@@ -58,7 +57,7 @@
 			var valid = true;
 			 allFields.removeClass( "ui-state-error" );
 		 
-			valid = valid && checkLength( pav, "Produkto pavadinimo", 3, 16 );
+			valid = valid && checkLength( pav, "Produkto pavadinimo", 1, 30 );
 
 			// valid = valid && checkRegexp( Pavadinimas, /^[a-z]([0-9a-z_\s])+$/i, "product may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
 	 
@@ -165,7 +164,7 @@
 	<div id="menu">
 		<ul id="menu_sarasas">
 			<li id="menu_punktas" th:each="menu_item : ${lst_menu}">
-				<a th:href="${menu_item.itemurl()}" th:text="${menu_item.naujasPavadinimas()}"></a>
+				<a th:href="${menu_item.itemurl()}" th:text="${menu_item.naujasPavadinimas()}" th:attr="class=${menu_item.itemurl()}=='/produktai' ? 'active' : 'zzz'"></a>
 			</li>
 		</ul>
 	</div>
@@ -175,7 +174,7 @@
 		<form id="produkto_forma" method="POST">
 			<fieldset>
 				<label for="pav">Produkto pavadinimas</label>
-				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all">
+				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all" required>
 				<input type="hidden" name="veiksmas" id="veiksmas" value="papildyti">
 				<input type="hidden" name="id" id="id_taisomo_iraso" value="0">
 				<input type="checkbox" name="kilme" id="kilme" value="1">

@@ -17,9 +17,7 @@
 	
 		var dialog, form,
 		pav = $( "#pav" ),
-		maisto_medz_grupes_id = $( "#maisto_medz_grupes_id" ),
-	
-		allFields = $( [] ).add( pav ).add( maisto_medz_grupes_id );
+		allFields = $( [] ).add( pav );
 		tips = $( ".validateTips" );
 	 
 		//isveda pranesima apie nepavykusia validacija
@@ -56,8 +54,7 @@
 		function addProduct() {
 			var valid = true;
 			 allFields.removeClass( "ui-state-error" );
-			valid = valid && checkLength( pav, "Maistinės medžiagos pavadinimo", 3, 25 );
-			valid = valid; //&& checkLength( id_grupes, "ID_grupės", 1, 16 ); 
+			valid = valid && checkLength( pav, "Maistinės medžiagos pavadinimo", 3, 30 );
 			/*valid = valid && checkRegexp( id_produkto, /Number, "id_produkto turi buti sudarytas is skaiciu 0-9. Minimalus skaiciu kiekis 1, maksimalus 16." );
 			valid = valid && checkRegexp(  id_medziagos, /Number, "id_produkto turi buti sudarytas is skaiciu 0-9. Minimalus skaiciu kiekis 1, maksimalus 16." );
 			valid = valid && checkRegexp( kiekis, /Number, "id_produkto turi buti sudarytas is skaiciu 0-9. Minimalus skaiciu kiekis 1, maksimalus 16." );
@@ -138,8 +135,8 @@
 			
 				id = $( this ).data( 'id' );
 				$( '#id_taisomo_iraso' ).val ( id );
-				id_grup = $( this ).data( 'id_grup' );
-				$( '#maisto_medz_grupes_id' ).val ( id_grup );
+				id_grup_val = $( this ).data( 'id_grup' );
+				$( '#maisto_medz_grupes_id' ).val ( id_grup_val );
 				$( '#pav_veiksmo' ).html (  'Koreguojamas įrašas' );
 				$( '#pav' ).val( $( this ).data ( 'pav' ) );	
 				$( '#veiksmas' ).val ( 'pakeisti' );
@@ -164,7 +161,7 @@
 	<div id="menu">
 		<ul id="menu_sarasas">
 			<li id="menu_punktas" th:each="menu_item : ${lst_menu}">
-				<a th:href="${menu_item.itemurl()}" th:text="${menu_item.naujasPavadinimas()}"></a>
+				<a th:href="${menu_item.itemurl()}" th:text="${menu_item.naujasPavadinimas()}" th:attr="class=${menu_item.itemurl()}=='/maistines_medz' ? 'active' : 'zzz'"></a>
 			</li>
 		</ul>
 	</div>
@@ -174,9 +171,9 @@
 		<form id="produkto_forma" method="POST">
 			<fieldset>
 				<label for="pav">Maistinės medžiagos pavadinimas</label>
-				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all">
+				<input type="text" name="pav" id="pav" value="" class="text ui-widget-content ui-corner-all" required >
 				<label for="maisto_medz_grupes_id">Maisto medžiagų grupė</label>
-				<select id="maisto_medz_grupes_id" name="maisto_medz_grupes_id"> 
+				<select id="maisto_medz_grupes_id" name="maisto_medz_grupes_id" required> 
 					<option th:each="maisto_medziagu_grupes : ${maist_medz_grupes}" 
 						th:value="${maisto_medziagu_grupes.getId()}" 
 						th:text="${maisto_medziagu_grupes.getPav()}"

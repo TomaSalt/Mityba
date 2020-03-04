@@ -71,7 +71,7 @@
 	<div id="menu">
 		<ul id="menu_sarasas">
 			<li id="menu_punktas" th:each="menu_item : ${lst_menu}">
-				<a th:href="${menu_item.itemurl()}" th:text="${menu_item.naujasPavadinimas()}"></a>
+				<a th:href="${menu_item.itemurl()}" th:text="${menu_item.naujasPavadinimas()}" th:attr="class=${menu_item.itemurl()}=='/paieska' ? 'active' : 'zzz'"></a>
 			</li>
 		</ul>
 	</div>
@@ -93,7 +93,7 @@
 				</div>
 				<input type="hidden" name="veiksmas" id="veiksmas"value="ieskoti">
 				<input type="hidden" name="id" id="id_taisomo_iraso" value="0">
-				<select name="id_medziagos" id="id_medziagos"> 
+				<select name="id_medziagos" id="id_medziagos" required> 
 					<option th:each="maistine_medz : ${lst}" 
 						th:value="${maistine_medz.getId()}" 
 						th:text="${maistine_medz.getPav()}"
