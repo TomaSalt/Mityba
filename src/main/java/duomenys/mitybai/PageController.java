@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -81,6 +84,8 @@ public class PageController {
         
 		BackEndMessage back_end_message = new BackEndMessage ( "nieko dar neveikem", false, "pranesimas_grey" );
 		
+		String kur_eiti = "produktas";
+		
         if ( veiksmas.equals("papildyti") ) {
         	
         	List<Produktai> lst_prod = produktai_rep.findByPav(pav);
@@ -94,8 +99,10 @@ public class PageController {
         		
 	        	Produktai produktas = new Produktai( id, pav, kilme );
 	        	produktai_rep.save( produktas );
+	        	kur_eiti = "redirect:/produktas?id="+produktas.getId();
         		back_end_message.setMessage( "sarašas papildytas produktu '" + pav + "'" );
-        		back_end_message.setCss_class( "pranesimas_green" );	        	
+        		back_end_message.setCss_class( "pranesimas_green" );
+        		
         	}
         }
         
@@ -130,7 +137,7 @@ public class PageController {
         model.addAttribute( "lst", produktai_rep.findAll() );
         
         
-        return "produktas";
+        return kur_eiti;
     }
 	
 	@RequestMapping(path="/produktas", method={ RequestMethod.GET, RequestMethod.POST })
@@ -390,6 +397,24 @@ public class PageController {
         model.addAttribute( "back_end_message", back_end_message );
         model.addAttribute("lst_menu", Menu.values() ); 
         model.addAttribute("lst", produktai_medziagos_rep.findAll() );
+        
+        ArrayList<AutocompleteProd> produktu_pav = new ArrayList<AutocompleteProd>();
+        
+        for ( Produktai pr : produktai_rep.findAll() ) {
+        	
+        	produktu_pav.add( new AutocompleteProd (pr.getId(),pr.getPav()));
+        }
+        
+        model.addAttribute("prod_pav", produktu_pav );
+        
+        ArrayList<AutocompleteMedz> medziagos = new ArrayList<AutocompleteMedz>();
+        
+        for ( Maistines_medz medz : maistines_medz_rep.findAll() ) {
+        	
+        	medziagos.add( new AutocompleteMedz (medz.getId(),medz.getPav()));
+        }
+        
+        model.addAttribute("maist_medz", medziagos);
         
         return "produktas_medziaga";
     }

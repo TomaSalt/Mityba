@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 //import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
 
@@ -20,6 +23,7 @@ public class Produktai {
     private Integer kilme;
     
     @OneToMany(mappedBy="produktai",cascade=CascadeType.ALL)
+    @JsonIgnoreProperties("produktai")
     private List<Produktai_medziagos> produktai_medziagos;    
    
 	public Produktai(Integer id, String pav, Integer kilme) {

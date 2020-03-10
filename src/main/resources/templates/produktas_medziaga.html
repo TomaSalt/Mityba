@@ -13,6 +13,12 @@
 	</style>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+	var produktu_pavadinimai = /*[[${prod_pav}]]*/ 'Produktu pavadinimai';
+	var medziagu_pavadinimai = /*[[${maist_medz}]]*/ 'Medziagu pavadinimai';
+	/*]]>*/
+	</script>
 	<script>
 	$( function() {
 	
@@ -179,7 +185,52 @@
 				trintidialog.dialog( "open" );	
 			});
 		});
-	});
+		
+
+
+ 		$( "#pav_medziagos" ).autocomplete({
+			minLength: 0,
+			source: medziagu_pavadinimai,
+			focus: function( event, ui ) {
+				$( "#pav_medziagos" ).val( ui.item.label );
+				return false;
+			},
+			select: function( event, ui ) {
+				$( "#pav_medziagos" ).val( ui.item.label );
+				$( "#pav_medziagos-id" ).val( ui.item.value );
+				/*$( "#project-description" ).html( ui.item.desc );
+				$( "#project-icon" ).attr( "src", "images/" + ui.item.icon );*/
+				return false;
+			}
+		})
+		.autocomplete( "instance" )._renderItem = function( ul, item ) {
+			return $( "<li>" )
+			.append( "<div>" + item.label + /*"<br>" + item.desc +*/ "</div>" )
+			.appendTo( ul );
+		};
+		var projects2 = produktu_pavadinimai;
+
+ 		$( "#pav_produkto" ).autocomplete({
+			minLength: 0,
+			source: produktu_pavadinimai,
+			focus: function( event, ui ) {
+				$( "#pav_produkto" ).val( ui.item.label );
+				return false;
+			},
+			select: function( event, ui ) {
+				$( "#pav_produkto" ).val( ui.item.label );
+				$( "#pav_produkto-id" ).val( ui.item.value );
+				/*$( "#project-description" ).html( ui.item.desc );
+				$( "#project-icon" ).attr( "src", "images/" + ui.item.icon );*/
+				return false;
+			}
+		})
+		.autocomplete( "instance" )._renderItem = function( ul, item ) {
+			return $( "<li>" )
+			.append( "<div>" + item.label + /*"<br>" + item.desc +*/ "</div>" )
+			.appendTo( ul );
+		};
+	} );
   </script>
 </head>
 <body>
@@ -196,16 +247,17 @@
 		<p id="pav_veiksmo"></p>
 		<form id="produkto_forma" method="POST">
 			<fieldset>
-				<label for="pav_produkto">Produkto pavadinimas</label>
-				<input type="text" name="pav_produkto" id="pav_produkto" value="0" class="text ui-widget-content ui-corner-all">
-				<label for="pav_medziagos">Medžiagos pavadinimas</label>
-				<input type="text" name="pav_medziagos" id="pav_medziagos" value="0" class="text ui-widget-content ui-corner-all">
+				<label for="pav_produkto" id="pav_produkto-label">Produkto pavadinimas</label>
+				<input type="text" name="pav_produkto" id="pav_produkto" value="" class="text ui-widget-content ui-corner-all">
+				<label for="pav_medziagos" id="pav_medziagos-label" >Medžiagos pavadinimas</label>
+				<input type="text" name="pav_medziagos" id="pav_medziagos" value="" class="text ui-widget-content ui-corner-all">
 				<label for="kiekis">Kiekis</label>
 				<input type="number" name="kiekis" id="kiekis" value="0" class="text ui-widget-content ui-corner-all">
 				<input type="hidden" name="veiksmas" id="veiksmas"value="papildyti">				
 				<input type="hidden" name="id" id="id_taisomo_iraso" value="0">
-				<input type="hidden" name="id_produkto" id="id_produkto" value="0">
-				<input type="hidden" name="id_medziagos" id="id_medziagos" value="0">				
+				<input type="hidden" name="id_produkto" id="pav_produkto-id" value="0">
+				<input type="hidden" name="id_medziagos" id="pav_medziagos-id" value="0">
+				
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<!-- input type="submit" tabindex="-1" style="position:absolute; top:-1000px" name="pildyti" value="papildyti" -->
 				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">

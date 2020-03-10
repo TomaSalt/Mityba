@@ -57,6 +57,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+	   <!--  Gson: Java to Json conversion -->
+	    <dependency>
+	        <groupId>com.google.code.gson</groupId>
+	        <artifactId>gson</artifactId>
+	        <scope>compile</scope>
+	    </dependency>        
 	</dependencies>
 
 	<build>
